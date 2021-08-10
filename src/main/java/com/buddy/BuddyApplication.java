@@ -51,36 +51,15 @@ public class BuddyApplication {
 			usersService.saveUser(new Users(null, "Kunta", "Kinte", "kuntakinte@gmail.com", "1234"));
 			usersService.saveUser(new Users(null, "Pierre", "Sankara", "pierresankara@gmail.com", "1234"));
 			
-//			bankService.createBankAccount(new BankAccount(null, 120.50, (long) 1));
-//			bankService.createBankAccount(new BankAccount(null, 500.00, (long) 2));
-//			bankService.createBankAccount(new BankAccount(null, 1500.00, (long) 3));
-			
 			bankService.createBankAccount(new BankAccount(null, 120.50, usersService.getUser("johnali@gmail.com")));
 			bankService.createBankAccount(new BankAccount(null, 500.00, usersService.getUser("kuntakinte@gmail.com")));
 			bankService.createBankAccount(new BankAccount(null, 1500.00, usersService.getUser("pierresankara@gmail.com")));
 
-			
-//			contactService.addContact("johnali@gmail.com", (long) 2);
-//			contactService.addContact("kuntakinte@gmail.com", (long) 1);
-			
 			contactService.addContact("johnali@gmail.com", "kuntakinte@gmail.com");
 			contactService.addContact("kuntakinte@gmail.com", "johnali@gmail.com");
 			contactService.addContact("johnali@gmail.com", "pierresankara@gmail.com");
 			contactService.addContact("pierresankara@gmail.com", "kuntakinte@gmail.com");
 
-//			transactionService.makeTransaction(
-//				new Transaction(null
-//						, 10.0
-//						, usersService.getUser("johnali@gmail.com").getId()
-//						, (long) 2 
-//						, bankService
-//						.getBankIdByUserId(
-//								usersService.getUser("johnali@gmail.com").getId())
-//						, bankService.getBankIdByUserId((long) 2) 
-//						, null
-//						,"Refund the meal"
-//				));
-			
 			transactionService.makeTransaction(
 					new Transaction(null
 							, 10.50

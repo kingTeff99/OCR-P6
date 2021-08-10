@@ -27,7 +27,7 @@ public class ContactService {
 	 * @param userRelatedId
 	 * @return
 	 */
-	public Contact verifyRelationship(Long userRelatingId, Long userRelatedId) {
+	public Contact verifyRelationship(Users userRelatingId, Users userRelatedId) {
 		 
 		 log.info("Relationship verified");
 		 
@@ -51,13 +51,6 @@ public class ContactService {
 		 Users contactToAdd = usersService.getUser(itsUsername);
 		 
 		 Users mycontact = usersService.getUser(myUsername);
-		 
-		 
-//		 Long contactToAdd = usersService.getUser(username);
-		  
-//		 newContact.setUserRelatedId(contactToAdd);
-//		  
-//		 newContact.setUserRelatingId(ownUserId);
 		 
 		 newContact.setUserRelatedId(contactToAdd);
 		  

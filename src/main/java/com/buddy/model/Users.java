@@ -24,19 +24,4 @@ public class Users {
 	
 	private String password;
 	
-//	@OneToOne(mappedBy = "userId")
-//	private BankAccount bankAccount;
-//	
-//	@OneToMany(mappedBy = "userSenderId")
-//	private List<Transaction> transactionSenderId;
-//    
-//	@OneToMany(mappedBy = "userReceiverId")
-//	private List<Transaction> transactionReceiverId;
-//	
-//	@OneToMany(mappedBy = "userRelatedId")
-//	private List<Contact> userRelatedId;
-//	
-//	@OneToMany(mappedBy = "userRelatingId")
-//	private List<Contact> userRelatingId;
-	
 }

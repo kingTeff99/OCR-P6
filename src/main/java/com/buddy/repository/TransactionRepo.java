@@ -9,19 +9,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.buddy.model.Transaction;
+import com.buddy.model.Users;
 
 @Repository
 @Transactional
 public interface TransactionRepo extends JpaRepository<Transaction, Long>{
-	
-	List<Transaction> findByUserSenderId(Long id);
-	
-	List<Transaction> findByUserReceiverId(Long id);
 	
 	List<Transaction> findByUserReceiverIdAndUserSenderId(Long userSenderId, Long userReceiverId);
 	
 	List<Transaction> findAll();
 	
 	Optional<Transaction> findById(Long id);
+	
+	List<Transaction> findByUserReceiverId(Users userReceiverId);
+	
+	List<Transaction> findByUserSenderId(Users userSenderId);
 	
 }

@@ -24,7 +24,7 @@ public class BankService {
 
 		log.info("Bank Account {} found", userId);
 		
-		return bankRepo.findByUserId(userId);
+		return bankRepo.getById(userId);
 		
 	}
 	

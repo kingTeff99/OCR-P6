@@ -9,17 +9,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.buddy.model.Contact;
+import com.buddy.model.Users;
 
 @Repository
 @Transactional
 public interface ContactRepo extends JpaRepository<Contact, Long> {
 	
-	List<Contact> findByUserRelatedId(Long uerRelatedId);
+	List<Contact> findByUserRelatedId(Users userRelatedId);
 	
-	List<Contact> findByUserRelatingId(Long userRelatingId);
+	List<Contact> findByUserRelatingId(Users userRelatingId);
 	
 	Optional<Contact> findById(Long id);
 	
-	Contact findByUserRelatingIdAndUserRelatedId(Long userRelatingId, Long userRelatedId);
+	Contact findByUserRelatingIdAndUserRelatedId(Users userRelatingId, Users userRelatedId);
+	
 	
 }

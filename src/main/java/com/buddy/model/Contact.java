@@ -2,7 +2,6 @@ package com.buddy.model;
 
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,16 +18,12 @@ public class Contact {
 	 @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
 	 
-	 @ManyToOne(fetch=FetchType.EAGER)
+	 @ManyToOne
 	 @JoinColumn(name = "userRelating_id")
 	 private Users userRelatingId;
 	 
-	 @ManyToOne(fetch=FetchType.EAGER)
+	 @ManyToOne
 	 @JoinColumn(name = "userRelated_id")
 	 private Users userRelatedId;
 	 
-//	 private Long userRelatingId;
-//	 
-//	 private Long userRelatedId;
-
 }

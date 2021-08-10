@@ -1,7 +1,6 @@
 package com.buddy.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,10 +19,8 @@ public class BankAccount {
 	
     private Double balance;
     
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne
 	@JoinColumn(name = "user_id")
 	private Users userId;
 		
-//  private Long userId;
-	
 }

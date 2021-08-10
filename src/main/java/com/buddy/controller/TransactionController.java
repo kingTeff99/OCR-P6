@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.buddy.model.Contact;
 import com.buddy.model.Transaction;
+import com.buddy.model.Users;
 import com.buddy.service.ContactService;
 import com.buddy.service.TransactionService;
 
@@ -72,9 +72,9 @@ public class TransactionController {
    * @return
    */
   @GetMapping("/transaction/{id}")
-  public List<Transaction> getTransactionById(@PathVariable Long id){
+  public List<Transaction> getTransactionById(@RequestBody Users user ){
   	
-     return transactionService.getAllTransactionsForAnUser(id);
+     return transactionService.getAllTransactionsForAnUser(user);
       
   }
 

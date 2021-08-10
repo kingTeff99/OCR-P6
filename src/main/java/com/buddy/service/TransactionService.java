@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
+import com.buddy.model.Users;
 import com.buddy.repository.BankRepo;
 import com.buddy.repository.TransactionRepo;
 
@@ -38,7 +39,7 @@ public class TransactionService {
 		
         try {
 
-            if(contactService.verifyRelationship(transaction.getUserSenderId().getId(), transaction.getUserReceiverId().getId()) == null)
+            if(contactService.verifyRelationship(transaction.getUserSenderId(), transaction.getUserReceiverId()) == null)
                 throw new Exception();
             
             BankAccount sender = bankService.getBankAccountByUserId(transaction.getUserSenderId().getId());
@@ -88,13 +89,13 @@ public class TransactionService {
      * @param id
      * @return
      */
-    public List<Transaction> getAllTransactionsForAnUser(Long id) {
+    public List<Transaction> getAllTransactionsForAnUser(Users userId) {
     	
     	List<Transaction> allTransaction = new ArrayList<>();
     	
-    	allTransaction.addAll(transactionRepo.findByUserReceiverId(id));
+    	allTransaction.addAll(transactionRepo.findByUserReceiverId(userId));
     	
-    	allTransaction.addAll(transactionRepo.findByUserSenderId(id));
+    	allTransaction.addAll(transactionRepo.findByUserSenderId(userId));
     	
     	return allTransaction;
     			

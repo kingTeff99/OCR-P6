@@ -1,7 +1,6 @@
 package com.buddy.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,14 +34,6 @@ public class Transaction {
 	@ManyToOne
 	@JoinColumn(name = "bankReceiver_id")
     private BankAccount bankReceiverId;
-	
-//    private Long userSenderId;
-//    
-//    private Long userReceiverId;
-//	
-//    private Long bankSenderId;
-//    
-//    private Long bankReceiverId;
     
     private Double fees;
     
