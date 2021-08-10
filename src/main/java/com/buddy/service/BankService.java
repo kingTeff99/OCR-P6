@@ -15,20 +15,35 @@ public class BankService {
 	@Autowired
 	private BankRepo bankRepo;
 	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	public BankAccount getBankAccountByUserId(Long userId) {
 
-		log.info("Bank Account{} found", userId);
+		log.info("Bank Account {} found", userId);
 		
-		return bankRepo.findBankAccountByUserId(userId);
+		return bankRepo.findByUserId(userId);
 		
 	}
 	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	public Long getBankIdByUserId(Long userId) {
 		
 		return getBankAccountByUserId(userId).getId();
 		
 	}
 	
+	/**
+	 * 
+	 * @param bankAccount
+	 * @return
+	 */
 	public BankAccount createBankAccount(BankAccount bankAccount) {
 		
 		log.info("New Bank Account Created");
@@ -36,5 +51,6 @@ public class BankService {
 		return bankRepo.save(bankAccount);
 		
 	}
+
 	
 }

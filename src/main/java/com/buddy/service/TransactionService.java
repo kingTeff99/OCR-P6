@@ -29,16 +29,21 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepo transactionRepo;
 	
-	public Long makeTransaction(Transaction transaction) {
+	/**
+	 * 
+	 * @param transaction
+	 * @return
+	 */
+	public Transaction makeTransaction(Transaction transaction) {
 		
         try {
 
-            if(contactService.verifyRelationship(transaction.getUserSenderId(), transaction.getUserReceiverId()) == null)
+            if(contactService.verifyRelationship(transaction.getUserSenderId().getId(), transaction.getUserReceiverId().getId()) == null)
                 throw new Exception();
             
-            BankAccount sender = bankService.getBankAccountByUserId(transaction.getUserSenderId());
+            BankAccount sender = bankService.getBankAccountByUserId(transaction.getUserSenderId().getId());
             
-            BankAccount receiver = bankService.getBankAccountByUserId(transaction.getUserReceiverId());
+            BankAccount receiver = bankService.getBankAccountByUserId(transaction.getUserReceiverId().getId());
 
             Double fees = Math.round((transaction.getAmount() * 0.05) * 100.0)/100.0;
             
@@ -56,7 +61,7 @@ public class TransactionService {
             
             log.info("Transaction {} made", transaction.getId());
             
-            return transaction.getId();
+            return transaction;
             
         } catch (Exception e){
         	
@@ -66,12 +71,23 @@ public class TransactionService {
         }
     }
 
+	/**
+	 * 
+	 * @param userIdSender
+	 * @param userIdReceiver
+	 * @return
+	 */
     public List<Transaction> getTransactions(Long userIdSender, Long userIdReceiver) {
     	
     	return transactionRepo.findByUserReceiverIdAndUserSenderId(userIdSender, userIdReceiver);
     	
     }
     
+    /**
+     * 
+     * @param id
+     * @return
+     */
     public List<Transaction> getAllTransactionsForAnUser(Long id) {
     	
     	List<Transaction> allTransaction = new ArrayList<>();

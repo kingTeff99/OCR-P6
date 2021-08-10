@@ -1,10 +1,12 @@
 package com.buddy.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.buddy.model.Contact;
+import com.buddy.model.Users;
 import com.buddy.repository.ContactRepo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,12 @@ public class ContactService {
 	private UsersService usersService;
 	
 	
+	/**
+	 * 
+	 * @param userRelatingId
+	 * @param userRelatedId
+	 * @return
+	 */
 	public Contact verifyRelationship(Long userRelatingId, Long userRelatedId) {
 		 
 		 log.info("Relationship verified");
@@ -28,19 +36,34 @@ public class ContactService {
 		 
 	 }
 	 
-	 public Contact addContact(String username, Long ownUserId) {
-		 
+	/**
+	 * 
+	 * @param username
+	 * @param ownUserId
+	 * @return
+	 */
+	public Contact addContact(String itsUsername, String myUsername) {
+	 
 		 Contact newContact = new Contact();
 		 
 		 log.info("New Contact added");
 		 
-		  Long contactToAdd = usersService.getUser(username).getId();
+		 Users contactToAdd = usersService.getUser(itsUsername);
+		 
+		 Users mycontact = usersService.getUser(myUsername);
+		 
+		 
+//		 Long contactToAdd = usersService.getUser(username);
 		  
-		  newContact.setUserRelatedId(contactToAdd);
+//		 newContact.setUserRelatedId(contactToAdd);
+//		  
+//		 newContact.setUserRelatingId(ownUserId);
+		 
+		 newContact.setUserRelatedId(contactToAdd);
 		  
-		  newContact.setUserRelatingId(ownUserId);
+		 newContact.setUserRelatingId(mycontact);
 		  
-		  contactRepo.save(newContact);
+		 contactRepo.save(newContact);
 		 
 		 return newContact;
 	 }

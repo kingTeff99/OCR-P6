@@ -48,9 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 	http.csrf().disable()
 	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	.and()
+	.formLogin()
+	.loginProcessingUrl("/api/login")
+//	.defaultSuccessUrl("/homepage.html", true)
 	.and().authorizeRequests()
 	.antMatchers("/api/login/**", "/api/token/refresh/**","/api/users/**", "/api/register/**"
-			,"/api/bankaccount/**","/api/transaction/make/**")
+			,"/api/bankaccount/**","/api/transaction/**", "api/bankaccount/**"
+			,"/api/contact/add")
 	.permitAll().and()
 	.authorizeRequests().antMatchers("/api/user/save/**").permitAll().and()
 	.authorizeRequests().antMatchers("/api/user/**").permitAll().and()

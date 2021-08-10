@@ -40,6 +40,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
@@ -52,6 +53,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 		return authenticationManager.authenticate(authToken);
 	}
 	
+	
+
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authentication) throws IOException, ServletException {
@@ -73,9 +76,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
+        
         response.setHeader("access_token", access_token);
         response.setHeader("refresh_token", refresh_token);
         Map<String, String> tokens = new HashMap<>();
+        
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
         response.setContentType("APPLICATION_JSON_VALUE");

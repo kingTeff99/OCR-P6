@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class BankAccount {
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
     private Double balance;
     
-//	@OneToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name = "userId")
-//    private Users userId;
-	
-    private Long userId;
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private Users userId;
+		
+//  private Long userId;
 	
 }

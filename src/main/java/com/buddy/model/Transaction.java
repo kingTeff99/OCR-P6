@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -14,33 +15,37 @@ import lombok.NoArgsConstructor;
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class Transaction {
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
     private Double amount;
     
-//	@ManyToOne(fetch=FetchType.EAGER)
-//    private Users userSenderId;
+	@ManyToOne
+	@JoinColumn(name = "userSender_id")
+    private Users userSenderId;
+    
+	@ManyToOne
+	@JoinColumn(name = "userReceiver_id")
+    private Users userReceiverId;
+	
+	@ManyToOne
+	@JoinColumn(name = "bankSender_id")
+    private BankAccount bankSenderId;
+    
+	@ManyToOne
+	@JoinColumn(name = "bankReceiver_id")
+    private BankAccount bankReceiverId;
+	
+//    private Long userSenderId;
 //    
-//	@ManyToOne(fetch=FetchType.EAGER)
-//    private Users userReceiverId;
+//    private Long userReceiverId;
 //	
-//	@ManyToOne(fetch=FetchType.EAGER)
-//    private BankAccount bankSenderId;
+//    private Long bankSenderId;
 //    
-//	@ManyToOne(fetch=FetchType.EAGER)
-//    private BankAccount bankReceiverId;
-	
-    private Long userSenderId;
-    
-    private Long userReceiverId;
-	
-    private Long bankSenderId;
-    
-    private Long bankReceiverId;
+//    private Long bankReceiverId;
     
     private Double fees;
     
     private String description;
-
+    
 }

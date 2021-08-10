@@ -15,5 +15,10 @@ public interface BankRepo extends JpaRepository<BankAccount, Long> {
 	Double findBalanceById(Long id);
 	
 	BankAccount findBankAccountByUserId(Long userId);
-
+	
+	BankAccount findByUserId(Long userId);
+	
+//	List<BankAccount> findByUserId(Users userId);
+	
+	
 }

@@ -25,6 +25,11 @@ public class UserController {
 	@Autowired
 	private UsersService usersService;
 	
+	/**
+	 * GET : Get all personal informations for an user
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/users/{id}/infos")
 	public ResponseEntity<Optional<Users>> getPersonalInfosById(@PathVariable Long id) {
   	
@@ -32,6 +37,10 @@ public class UserController {
       
 	}
 	
+	/**
+	 * GET : Get all users
+	 * @return
+	 */
 	@GetMapping("/users")
 	public ResponseEntity<List<Users>> getUsers() {
 		
@@ -39,6 +48,11 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * POST : Save A New User
+	 * @param users
+	 * @return
+	 */
 	@PostMapping("/users/save")
 	public ResponseEntity<Users> saveUser(@RequestBody Users users) {
 		
@@ -51,6 +65,11 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * DELETE : Delete An User
+	 * @param username
+	 * @return
+	 */
 	@DeleteMapping("/users/delete")
 	public ResponseEntity<?> deleteUserByUsername(@PathVariable String username) {
 		

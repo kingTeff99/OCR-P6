@@ -24,6 +24,12 @@ public class ApiController {
 	@Autowired
 	private UsersService usersService;
 	
+	
+	/**
+	 * POST : Method That Permit To Register a person in the Database
+	 * @param userForm
+	 * @return
+	 */
 	@PostMapping("/register")
 	public ResponseEntity<Users> register(@RequestBody RegisterForm userForm) {
 		
@@ -48,7 +54,7 @@ public class ApiController {
 	}
 	
 	/**
-	 * Class Qui Permet de faire la confirmation du MDP du user
+	 * Class To permit the confirmation of password's User
 	 * @author kingteff
 	 *
 	 */
@@ -61,5 +67,13 @@ public class ApiController {
 		private String password;
 		private String repassword;
 
+	}
+	
+	@Data @AllArgsConstructor @NoArgsConstructor
+	public static class ConnexionFrom {
+		
+		private String username;
+		private String password;
+		
 	}
 }

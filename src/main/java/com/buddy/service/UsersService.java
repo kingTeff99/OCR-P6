@@ -53,6 +53,11 @@ public class UsersService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
 	}
 	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public Users getUser(String username) {
 		
 		log.info("Fetching user {}", username);
@@ -61,6 +66,11 @@ public class UsersService implements UserDetailsService {
 		
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Optional<Users> getUserById(Long id) {
 		
 		log.info("Users found");
@@ -69,6 +79,10 @@ public class UsersService implements UserDetailsService {
 		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Users> getUsers() {
 		
 		log.info("Fetching all users");
@@ -77,6 +91,11 @@ public class UsersService implements UserDetailsService {
 		
 	}
 	
+	/**
+	 * 
+	 * @param users
+	 * @return
+	 */
 	public Users saveUser(Users users) {
 		
 		log.info("Saving new user {} to the DB", users.getUsername());
@@ -87,12 +106,21 @@ public class UsersService implements UserDetailsService {
 		
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public Users updateUser(Users user) {
 		
 		return userRepo.save(user);
 		
 	}
 	
+	/**
+	 * 
+	 * @param username
+	 */
 	public void deleteByUsername(String username) {
 		
 		userRepo.deleteById(userRepo.findIdByUsername(username));   
