@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.buddy.dto.TransactionDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
 import com.buddy.model.Users;
@@ -31,11 +32,13 @@ public class TransactionService {
 	private TransactionRepo transactionRepo;
 	
 	/**
-	 * 
+	 * Make a transaction
 	 * @param transaction
-	 * @return
+	 * @return Transaction
 	 */
-	public Transaction makeTransaction(Transaction transaction) {
+	public TransactionDTO makeTransaction(Transaction transaction) {
+		
+		TransactionDTO transac = new TransactionDTO();
 		
         try {
 
@@ -62,7 +65,13 @@ public class TransactionService {
             
             log.info("Transaction {} made", transaction.getId());
             
-            return transaction;
+            transac.setId(transaction.getId());
+            
+            transac.setAmount(transaction.getAmount());
+            
+            transac.setDescription(transaction.getDescription());
+            
+            return transac;
             
         } catch (Exception e){
         	
@@ -73,21 +82,21 @@ public class TransactionService {
     }
 
 	/**
-	 * 
+	 * Get a Transaction
 	 * @param userIdSender
 	 * @param userIdReceiver
-	 * @return
+	 * @return List of transaction
 	 */
-    public List<Transaction> getTransactions(Long userIdSender, Long userIdReceiver) {
+    public List<Transaction> getTransactions(Users userSenderId, Users userReceiverId) {
     	
-    	return transactionRepo.findByUserReceiverIdAndUserSenderId(userIdSender, userIdReceiver);
+    	return transactionRepo.findByUserReceiverIdAndUserSenderId(userSenderId, userReceiverId);
     	
     }
     
     /**
-     * 
+     * Get All Transactions By User Id
      * @param id
-     * @return
+     * @return List of transaction
      */
     public List<Transaction> getAllTransactionsForAnUser(Users userId) {
     	
@@ -100,6 +109,16 @@ public class TransactionService {
     	return allTransaction;
     			
     }
-
-
+    
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public Transaction getTransac(Long id) {
+    	
+        return transactionRepo.getById(id);
+    	
+    }
+    
 }

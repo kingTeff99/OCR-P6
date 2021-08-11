@@ -10,14 +10,15 @@ import lombok.NoArgsConstructor;
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id")
-@Data@AllArgsConstructor@NoArgsConstructor
-public class ContactDTO {
+@Data @AllArgsConstructor @NoArgsConstructor
+public class BankDTO {
 	
-	 private Long id;
-	 
-	 private Long userRelatedId;
-	 
-	 private Long userRelatingId;
-	 
-
+	private Long id;
+	
+    private Double balance;
+    
+	private Long userId;
+	
+	private String username;
+	
 }

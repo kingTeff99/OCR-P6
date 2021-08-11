@@ -1,22 +1,18 @@
 package com.buddy.controller;
 
-import java.net.URI;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.buddy.model.Contact;
+import com.buddy.dto.ContactDTO;
+import com.buddy.dto.FullTransactionDTO;
+import com.buddy.dto.TransactionDTO;
 import com.buddy.model.Transaction;
-import com.buddy.model.Users;
 import com.buddy.service.ContactService;
 import com.buddy.service.TransactionService;
 
@@ -34,12 +30,12 @@ public class TransactionController {
    * POST : Add a contact in order to make a transaction
    * @param username
    * @param ownUserId
-   * @return
+   * @return contact
    */
-  @PostMapping("/contact/add")
-  public ResponseEntity<Contact> addContact(@RequestParam("username") String username, @RequestParam("myUsername") String myUsername) {
+  @PostMapping(value = "/contact/add")
+  public ContactDTO addContact(@RequestParam String username, @RequestParam String myUsername) {
 	  
-		return new ResponseEntity<Contact>(contactService.addContact(username, myUsername), HttpStatus.CREATED);
+	  return contactService.addContact(username, myUsername);
 		
   }
 
@@ -48,21 +44,11 @@ public class TransactionController {
    * @param transaction
    * @return
    */
-  @PostMapping("/transaction/make")
-  public ResponseEntity<?> makeTransaction(@RequestBody Transaction transaction) {
+  @PostMapping(value = "/transaction/make")
+  public TransactionDTO makeTransaction(@RequestBody Transaction transaction) {
 	  
-//	    Transaction transactionId = transactionService.makeTransaction(transaction);
-	  
-	  URI uri = URI.create(ServletUriComponentsBuilder
-				.fromCurrentContextPath()
-				.path("api/transaction/make")
-				.toUriString());
-		
-//		return ResponseEntity.created(uri)
-//				.body(transactionService.getAllTransactionsForAnUser(transactionId));
-	  
-		return ResponseEntity.created(uri)
-		.body(transactionService.makeTransaction(transaction));
+    return transactionService.makeTransaction(transaction);
+ 
   	
   }
   
@@ -71,11 +57,29 @@ public class TransactionController {
    * @param id
    * @return
    */
-  @GetMapping("/transaction/{id}")
-  public List<Transaction> getTransactionById(@RequestBody Users user ){
-  	
-     return transactionService.getAllTransactionsForAnUser(user);
-      
-  }
+  @GetMapping(value = "/transaction/{id}")
+  public FullTransactionDTO getTransactionById(@PathVariable Long id){
+	  
+	  Transaction transaction = transactionService.getTransac(id);
+	  
+	  FullTransactionDTO fullTransactionDTO = new FullTransactionDTO();
+   
+	  fullTransactionDTO.setId(transaction.getId());
+	  
+	  fullTransactionDTO.setAmount(transaction.getAmount());
+	  
+	  fullTransactionDTO.setUserSender(transaction.getUserSenderId().getId());
 
+	  fullTransactionDTO.setUserReceiver(transaction.getUserReceiverId().getId());
+
+	  fullTransactionDTO.setBankSender(transaction.getBankSenderId().getId());
+
+	  fullTransactionDTO.setBankReceiver(transaction.getBankReceiverId().getId());
+	  
+	  fullTransactionDTO.setDescription(transaction.getDescription());
+
+	  return fullTransactionDTO;
+
+  }
+  
 }

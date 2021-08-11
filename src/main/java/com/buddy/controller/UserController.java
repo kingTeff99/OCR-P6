@@ -70,10 +70,10 @@ public class UserController {
 	 * @param username
 	 * @return
 	 */
-	@DeleteMapping("/users/delete")
-	public ResponseEntity<?> deleteUserByUsername(@PathVariable String username) {
+	@DeleteMapping("/users/{id}/delete")
+	public ResponseEntity<?> deleteUserByiD(@PathVariable Long id) {
 		
-		usersService.deleteByUsername(username);
+		usersService.deleteUserById(id);
 		
 		return ResponseEntity.ok().build();
 		

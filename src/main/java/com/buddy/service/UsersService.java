@@ -46,17 +46,13 @@ public class UsersService implements UserDetailsService {
 		
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		
-//		user.getRoles().forEach(role -> {
-//			authorities.add(new SimpleGrantedAuthority(role.getName()));
-//		});
-		
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
 	}
 	
 	/**
-	 * 
+	 * Get an user
 	 * @param username
-	 * @return
+	 * @return User
 	 */
 	public Users getUser(String username) {
 		
@@ -67,9 +63,9 @@ public class UsersService implements UserDetailsService {
 	}
 	
 	/**
-	 * 
+	 * Get an user by id
 	 * @param id
-	 * @return
+	 * @return user or null
 	 */
 	public Optional<Users> getUserById(Long id) {
 		
@@ -80,8 +76,8 @@ public class UsersService implements UserDetailsService {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Get all users in DB
+	 * @return list of user
 	 */
 	public List<Users> getUsers() {
 		
@@ -92,9 +88,9 @@ public class UsersService implements UserDetailsService {
 	}
 	
 	/**
-	 * 
+	 * Save an user
 	 * @param users
-	 * @return
+	 * @return user
 	 */
 	public Users saveUser(Users users) {
 		
@@ -107,9 +103,9 @@ public class UsersService implements UserDetailsService {
 	}
 	
 	/**
-	 * 
+	 * Update an user 
 	 * @param user
-	 * @return
+	 * @return user
 	 */
 	public Users updateUser(Users user) {
 		
@@ -119,15 +115,11 @@ public class UsersService implements UserDetailsService {
 	
 	/**
 	 * 
-	 * @param username
+	 * @param id
 	 */
-	public void deleteByUsername(String username) {
+	public void deleteUserById(Long id){
 		
-		userRepo.deleteById(userRepo.findIdByUsername(username));   
-		
+		userRepo.deleteById(id);
 	}
-
-	
-	
 
 }

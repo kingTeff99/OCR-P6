@@ -59,7 +59,8 @@ public class BuddyApplication {
 			contactService.addContact("kuntakinte@gmail.com", "johnali@gmail.com");
 			contactService.addContact("johnali@gmail.com", "pierresankara@gmail.com");
 			contactService.addContact("pierresankara@gmail.com", "kuntakinte@gmail.com");
-
+			contactService.addContact("kuntakinte@gmail.com", "pierresankara@gmail.com");
+			
 			transactionService.makeTransaction(
 					new Transaction(null
 							, 10.50
@@ -69,6 +70,28 @@ public class BuddyApplication {
 							, bankService.getBankAccountByUserId(usersService.getUser("kuntakinte@gmail.com").getId()) 
 							, null
 							,"Refund the lunch"
+					));
+			
+			transactionService.makeTransaction(
+					new Transaction(null
+							, 250.45
+							, usersService.getUser("kuntakinte@gmail.com")
+							, usersService.getUser("johnali@gmail.com")
+							, bankService.getBankAccountByUserId(usersService.getUser("kuntakinte@gmail.com").getId())
+							, bankService.getBankAccountByUserId(usersService.getUser("johnali@gmail.com").getId()) 
+							, null
+							,"Buy an playstation"
+					));
+			
+			transactionService.makeTransaction(
+					new Transaction(null
+							, 200.00
+							, usersService.getUser("pierresankara@gmail.com")
+							, usersService.getUser("kuntakinte@gmail.com")
+							, bankService.getBankAccountByUserId(usersService.getUser("pierresankara@gmail.com").getId())
+							, bankService.getBankAccountByUserId(usersService.getUser("kuntakinte@gmail.com").getId()) 
+							, null
+							,"Road trip"
 					));
 			
 		};

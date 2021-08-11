@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.buddy.dto.BankDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.repository.BankRepo;
 
@@ -16,9 +17,9 @@ public class BankService {
 	private BankRepo bankRepo;
 	
 	/**
-	 * 
+	 * Get a bank account with the user id
 	 * @param userId
-	 * @return
+	 * @return BankAccount
 	 */
 	public BankAccount getBankAccountByUserId(Long userId) {
 
@@ -28,10 +29,36 @@ public class BankService {
 		
 	}
 	
+	
+	
 	/**
-	 * 
+	 * Get a bank account with the user id
 	 * @param userId
-	 * @return
+	 * @return BankAccount
+	 */
+	public BankDTO getBankAccountDTOByUserId(Long userId) {
+
+		BankAccount bankAccount = bankRepo.getById(userId);
+		
+		BankDTO bankDTO = new BankDTO();
+		
+		bankDTO.setId(bankAccount.getId());
+		
+		bankDTO.setBalance(bankAccount.getBalance());
+
+		bankDTO.setUserId(bankAccount.getUserId().getId());
+		
+		bankDTO.setUsername(bankAccount.getUserId().getUsername());
+
+		return bankDTO;
+		
+	}
+	
+	
+	/**
+	 * Get the bank account id by the id
+	 * @param userId
+	 * @return Long
 	 */
 	public Long getBankIdByUserId(Long userId) {
 		
@@ -40,9 +67,9 @@ public class BankService {
 	}
 	
 	/**
-	 * 
+	 * Create a new bank account
 	 * @param bankAccount
-	 * @return
+	 * @return BankAccount
 	 */
 	public BankAccount createBankAccount(BankAccount bankAccount) {
 		
