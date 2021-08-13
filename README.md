@@ -24,7 +24,7 @@ Authentication
 
 ### POST
 
-- /api/register
+* /api/register
 Exemple du Json Body :
 {
     "firstName": "Cristiano",
@@ -34,5 +34,5 @@ Exemple du Json Body :
     "repassword": "123456"
 }
 
-- /paymybuddy/login
+* /paymybuddy/login
 . Retourne une reponse json avec JWT (Json Web Token)
