@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
+	
+	@Value("${Buddy.app.jwtSecret}")
+	private String jwtSecret;
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -61,7 +65,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 		
 		User user = (User) authentication.getPrincipal();
 		
-		Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+//		Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+		
+		Algorithm algorithm = Algorithm.HMAC256("jwtSecret".getBytes());
+
 		
         String access_token = JWT.create()
                 .withSubject(user.getUsername())

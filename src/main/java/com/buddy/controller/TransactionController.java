@@ -1,6 +1,7 @@
 package com.buddy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.buddy.service.TransactionService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5500")
 public class TransactionController {
 	
   @Autowired
@@ -33,6 +35,7 @@ public class TransactionController {
    * @return contact
    */
   @PostMapping(value = "/contact/add")
+  @CrossOrigin(origins = "http://localhost:5500")
   public ContactDTO addContact(@RequestParam String username, @RequestParam String myUsername) {
 	  
 	  return contactService.addContact(username, myUsername);
@@ -44,6 +47,7 @@ public class TransactionController {
    * @param transaction
    * @return
    */
+  @CrossOrigin(origins = "http://localhost:5500")
   @PostMapping(value = "/transaction/make")
   public TransactionDTO makeTransaction(@RequestBody Transaction transaction) {
 	  
@@ -57,6 +61,7 @@ public class TransactionController {
    * @param id
    * @return
    */
+  @CrossOrigin(origins = "http://localhost:5500")
   @GetMapping(value = "/transaction/{id}")
   public FullTransactionDTO getTransactionById(@PathVariable Long id){
 	  

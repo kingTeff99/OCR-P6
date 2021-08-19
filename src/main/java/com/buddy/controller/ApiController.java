@@ -2,11 +2,15 @@ package com.buddy.controller;
 
 import java.net.URI;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,17 +23,28 @@ import lombok.NoArgsConstructor;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5500")
 public class ApiController {
 	
 	@Autowired
 	private UsersService usersService;
 	
 	
+//	@RequestMapping(value= "/api/**", method=RequestMethod.OPTIONS)
+//	public void corsHeaders(HttpServletResponse response) {
+//	    response.addHeader("Access-Control-Allow-Origin", "*");
+//	    response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//	    response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with");
+//	    response.addHeader("Access-Control-Max-Age", "3600");
+//	}
+//	
+	
 	/**
 	 * POST : Method That Permit To Register a person in the Database
 	 * @param userForm
 	 * @return
 	 */
+	@CrossOrigin(origins = "http://localhost:5500")
 	@PostMapping("/register")
 	public ResponseEntity<Users> register(@RequestBody RegisterForm userForm) {
 		

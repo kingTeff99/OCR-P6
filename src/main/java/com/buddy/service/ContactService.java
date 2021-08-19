@@ -69,6 +69,6 @@ public class ContactService {
 		 newLink.setUserRelatingId(mycontact.getId());
 
 		 return newLink;
-	 }
-	 
+	}
+	
 }

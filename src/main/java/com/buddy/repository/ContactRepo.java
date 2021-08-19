@@ -23,5 +23,4 @@ public interface ContactRepo extends JpaRepository<Contact, Long> {
 	
 	Contact findByUserRelatingIdAndUserRelatedId(Users userRelatingId, Users userRelatedId);
 	
-	
 }
