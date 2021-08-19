@@ -26,7 +26,7 @@ Authentication
 
 * /api/register
 Exemple du Json Body :
-`{</br>
+`{
     "firstName": "Cristiano",  
     "lastName": "Ronaldo",  
     "username": "cr7@gmail.com",  
