@@ -32,7 +32,7 @@ Exemple du Json Body :
     "username": "cr7@gmail.com",
     "password": "123456",
     "repassword": "123456"
-}
+}`
 
 * /paymybuddy/login
-. Retourne une reponse json avec JWT (Json Web Token)
+- Retourne une reponse json avec JWT (Json Web Token)
