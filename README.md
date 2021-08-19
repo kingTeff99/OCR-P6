@@ -27,11 +27,11 @@ Authentication
 * /api/register
 Exemple du Json Body :
 `{</br>
-    "firstName": "Cristiano",</br>
-    "lastName": "Ronaldo",</br>
-    "username": "cr7@gmail.com",</br>
-    "password": "123456",</br>
-    "repassword": "123456"</br>
+    "firstName": "Cristiano",  
+    "lastName": "Ronaldo",  
+    "username": "cr7@gmail.com",  
+    "password": "123456",  
+    "repassword": "123456"  
 }`
 
 * /paymybuddy/login
