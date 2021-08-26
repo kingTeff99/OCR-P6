@@ -1,7 +1,6 @@
 package com.buddy.controller;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -20,9 +19,7 @@ import com.buddy.dto.TransactionDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
 import com.buddy.model.Users;
-import com.buddy.repository.BankRepo;
 import com.buddy.repository.TransactionRepo;
-import com.buddy.repository.UserRepo;
 import com.buddy.service.BankService;
 import com.buddy.service.ContactService;
 import com.buddy.service.TransactionService;
@@ -46,16 +43,10 @@ public class TransactionControllerTest {
 	ContactService contactService;
 	
 	@MockBean
-	BankRepo bankRepo;
-	
-	@MockBean
 	BankService bankService;
 	
 	@MockBean
 	UsersService usersService;
-	
-	@MockBean
-	UserRepo userRepo;
 	
 	@MockBean
 	TransactionRepo transactionRepo;
