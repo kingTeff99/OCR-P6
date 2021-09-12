@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.buddy.dto.BankDTO;
 import com.buddy.model.BankAccount;
-import com.buddy.repository.BankRepo;
+import com.buddy.repository.BankRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BankService {
 	
 	@Autowired
-	private BankRepo bankRepo;
+	private BankRepository bankRepo;
 	
 	/**
 	 * Get a bank account with the user id
@@ -22,6 +22,10 @@ public class BankService {
 	 * @return BankAccount
 	 */
 	public BankAccount getBankAccountByUserId(Long userId) {
+		
+		if(userId == null) {
+			return null;
+		}
 
 		log.info("Bank Account {} found", userId);
 		
@@ -38,17 +42,15 @@ public class BankService {
 	 */
 	public BankDTO getBankAccountDTOByUserId(Long userId) {
 
+		if(userId == null) {
+			return null;
+		}
+		
 		BankAccount bankAccount = bankRepo.getById(userId);
 		
-		BankDTO bankDTO = new BankDTO();
-		
-		bankDTO.setId(bankAccount.getId());
-		
-		bankDTO.setBalance(bankAccount.getBalance());
-
-		bankDTO.setUserId(bankAccount.getUserId().getId());
-		
-		bankDTO.setUsername(bankAccount.getUserId().getUsername());
+		BankDTO bankDTO = BankDTO.builder().id(bankAccount.getId())
+				.balance(bankAccount.getBalance()).userId(bankAccount.getUserId().getId())
+				.username(bankAccount.getUserId().getUsername()).build();
 
 		return bankDTO;
 		
@@ -61,6 +63,10 @@ public class BankService {
 	 * @return Long
 	 */
 	public Long getBankIdByUserId(Long userId) {
+		
+		if(userId == null) {
+			return null;
+		}
 		
 		return getBankAccountByUserId(userId).getId();
 		
@@ -78,6 +84,5 @@ public class BankService {
 		return bankRepo.save(bankAccount);
 		
 	}
-
 	
 }

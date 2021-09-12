@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.buddy.model.Contact;
 import com.buddy.model.Users;
-import com.buddy.repository.ContactRepo;
-import com.buddy.repository.UserRepo;
+import com.buddy.repository.ContactRepository;
+import com.buddy.repository.UserRepository;
 
 @ActiveProfiles("test")
 @TestPropertySource("classpath:application-test.properties")
@@ -32,10 +32,10 @@ public class ContactServiceTest {
 	 }
 
 	 @Autowired
-	 private UserRepo userRepo;
+	 private UserRepository userRepo;
 	 
 	 @Autowired
-	 private ContactRepo contactRepo;
+	 private ContactRepository contactRepo;
 	 
 	 
 	 @Test

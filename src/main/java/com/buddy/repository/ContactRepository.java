@@ -13,7 +13,7 @@ import com.buddy.model.Users;
 
 @Repository
 @Transactional
-public interface ContactRepo extends JpaRepository<Contact, Long> {
+public interface ContactRepository extends JpaRepository<Contact, Long> {
 	
 	List<Contact> findByUserRelatedId(Users userRelatedId);
 	

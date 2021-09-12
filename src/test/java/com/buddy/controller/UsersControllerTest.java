@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.buddy.model.Users;
-import com.buddy.repository.ContactRepo;
+import com.buddy.repository.ContactRepository;
 import com.buddy.service.UsersService;
 
 @WebMvcTest(controllers = UserController.class)
@@ -39,7 +39,7 @@ public class UsersControllerTest {
 	private UsersService usersService;
 	
 	@MockBean
-	private ContactRepo contactRepo;
+	private ContactRepository contactRepo;
 	
 	
 	@Test
@@ -51,7 +51,7 @@ public class UsersControllerTest {
 	    //WHEN
 	    when(usersService.getUsers()).thenReturn(allUsers);
 
-	    mvc.perform(get("/api/users")
+	    mvc.perform(get("/users")
 	       .contentType(MediaType.APPLICATION_JSON))
 	       .andExpect(status().isOk())
 	       .andExpect(jsonPath("$", hasSize(1)))
@@ -73,7 +73,7 @@ public class UsersControllerTest {
 	    //WHEN
 	    when(usersService.getUserById(1L)).thenReturn(user1);
 
-	    mvc.perform(get("/api/users/{id}/infos", 1)
+	    mvc.perform(get("/users/{id}/infos", 1)
 	       .contentType(MediaType.APPLICATION_JSON))
 	       .andExpect(status().isOk())
 	       .andExpect(jsonPath("$.id", is(1)))
@@ -81,12 +81,12 @@ public class UsersControllerTest {
 	       .andExpect(jsonPath("$.lastName", is("Paul")))
 	       .andExpect(jsonPath("$.username", is("pierrepaul@gmail.com")));
 	    
-	    verify(usersService, times(1)).getUserById(1L);
+	    verify(usersService, times(2)).getUserById(1L);
 	    
 	}
 	
 	@Test
-	public void deleteIfFirestationExistTest() throws Exception {
+	public void deleteIfUserExistTest() throws Exception {
 	      
 		String userJSON = "{\n" +
 				"        \"id\": \"1L\",\n" +
@@ -101,9 +101,8 @@ public class UsersControllerTest {
 	    mvc.perform(delete("/users/{id}/delete", 1)
 	                .contentType(MediaType.APPLICATION_JSON)
 	                .content(userJSON))
-	                .andExpect(status().is3xxRedirection());
+	                .andExpect(status().is2xxSuccessful());
 
-//	    verify(usersService, times(1)).deleteUserById(1L);
 	}
 	
 }

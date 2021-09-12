@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.buddy.model.BankAccount;
 import com.buddy.model.Users;
-import com.buddy.repository.BankRepo;
-import com.buddy.repository.UserRepo;
+import com.buddy.repository.BankRepository;
+import com.buddy.repository.UserRepository;
 
 @ActiveProfiles("test")
 @TestPropertySource("classpath:application-test.properties")
@@ -30,10 +30,10 @@ public class BankServiceTest {
 	 }
 
 	 @Autowired
-	 private UserRepo userRepo;
+	 private UserRepository userRepo;
 	 
 	 @Autowired
-	 private BankRepo bankRepo;
+	 private BankRepository bankRepo;
 
 //	 @Autowired
 //	 private TestEntityManager entityManager;

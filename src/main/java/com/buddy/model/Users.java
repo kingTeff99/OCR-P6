@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,7 +23,7 @@ import lombok.ToString;
 		  property = "id",
 		  resolver = EntityIdResolver.class,
 	      scope = Users.class)
-@Entity @ToString @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode
+@Entity @ToString @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode@Builder
 public class Users implements Serializable{
 	
 	/**

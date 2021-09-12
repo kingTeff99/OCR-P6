@@ -1,20 +1,11 @@
 package com.buddy;
 
 
-import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
@@ -31,6 +22,9 @@ public class BuddyApplication {
 		SpringApplication.run(BuddyApplication.class, args);
 	}
 	
+// This code helps us to test our database and 
+// make sure that all features created in our service layer works
+// And You use it for the front end part
 //	@Autowired
 //	private UsersService usersService;
 //	
@@ -62,7 +56,7 @@ public class BuddyApplication {
 //			contactService.addContact("smithwesson@gmail.com", "hayleydupont@gmail.com");
 //			contactService.addContact("clarakata@gmail.com", "smithwesson@gmail.com");
 //			
-//			transactionService.makeTransaction(
+//			transactionService.makeTransactionWithInputVerification(
 //					new Transaction(null
 //							, 10.00
 //							, usersService.getUser("hayleydupont@gmail.com")
@@ -73,7 +67,7 @@ public class BuddyApplication {
 //							,"Restaurant bill share"
 //					));
 //			
-//			transactionService.makeTransaction(
+//			transactionService.makeTransactionWithInputVerification(
 //					new Transaction(null
 //							, 25.00
 //							, usersService.getUser("clarakata@gmail.com")
@@ -84,7 +78,7 @@ public class BuddyApplication {
 //							,"Trip money"
 //					));
 //			
-//			transactionService.makeTransaction(
+//			transactionService.makeTransactionWithInputVerification(
 //					new Transaction(null
 //							, 8.00
 //							, usersService.getUser("smithwesson@gmail.com")
@@ -97,19 +91,4 @@ public class BuddyApplication {
 //			
 //		};
 //	}
-//	
-//	 	@Bean
-//	    public FilterRegistrationBean simpleCorsFilter() {  
-//	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  
-//	        CorsConfiguration config = new CorsConfiguration();  
-//	        config.setAllowCredentials(true); 
-//	        // *** URL below needs to match the Vue client URL and port ***
-//	        config.setAllowedOrigins(Collections.singletonList("http://localhost:8080")); 
-//	        config.setAllowedMethods(Collections.singletonList("*"));  
-//	        config.setAllowedHeaders(Collections.singletonList("*"));  
-//	        source.registerCorsConfiguration("/**", config);  
-//	        FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
-//	        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
-//	        return bean;  
-//	    }   
 }

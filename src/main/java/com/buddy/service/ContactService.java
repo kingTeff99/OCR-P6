@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.buddy.dto.ContactDTO;
 import com.buddy.model.Contact;
 import com.buddy.model.Users;
-import com.buddy.repository.ContactRepo;
+import com.buddy.repository.ContactRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ContactService {
 	
 	@Autowired
-	private ContactRepo contactRepo;
+	private ContactRepository contactRepo;
 	
 	@Autowired
 	private UsersService usersService;
@@ -29,10 +29,14 @@ public class ContactService {
 	 * @return Contact
 	 */
 	public Contact verifyRelationship(Users userRelatingId, Users userRelatedId) {
+		
+		if((userRelatingId == null) || (userRelatedId == null)) {
+			return null;
+		}
+		
+		log.info("Relationship verified");
 		 
-		 log.info("Relationship verified");
-		 
-		 return contactRepo
+		return contactRepo
 				 .findByUserRelatingIdAndUserRelatedId(userRelatingId, userRelatedId);
 		 
 	 }
@@ -46,29 +50,26 @@ public class ContactService {
 	 */
 	public ContactDTO addContact(String username, String myUsername) {
 	 
-		 Contact newContact = new Contact();
+		if((username == null) || (myUsername == null)) {
+			return null;
+		}
+		
+		log.info("New Contact added");
 		 
-		 ContactDTO newLink = new ContactDTO();
+		Users contactToAdd = usersService.getUser(username);
 		 
-		 log.info("New Contact added");
+		Users mycontact = usersService.getUser(myUsername);
+		
+		Contact newContact = Contact.builder().userRelatedId(contactToAdd)
+				.userRelatingId(mycontact).build();
+		
+		contactRepo.save(newContact);
 		 
-		 Users contactToAdd = usersService.getUser(username);
-		 
-		 Users mycontact = usersService.getUser(myUsername);
-		 
-		 newContact.setUserRelatedId(contactToAdd);
-		  
-		 newContact.setUserRelatingId(mycontact);
-		  
-		 contactRepo.save(newContact);
-		 
-		 newLink.setId(newContact.getId());
-		 
-		 newLink.setUserRelatedId(contactToAdd.getId());
-		 
-		 newLink.setUserRelatingId(mycontact.getId());
-
-		 return newLink;
+		ContactDTO newLink = ContactDTO.builder().id(newContact.getId())
+		.userRelatedId(contactToAdd.getId())
+		.userRelatingId(mycontact.getId()).build();
+		
+		return newLink;
 	}
 	
 }

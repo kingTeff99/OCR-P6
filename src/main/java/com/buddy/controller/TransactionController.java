@@ -1,12 +1,10 @@
 package com.buddy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +16,6 @@ import com.buddy.service.ContactService;
 import com.buddy.service.TransactionService;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5500")
 public class TransactionController {
 	
   @Autowired
@@ -35,8 +31,8 @@ public class TransactionController {
    * @return contact
    */
   @PostMapping(value = "/contact/add")
-  @CrossOrigin(origins = "http://localhost:5500")
   public ContactDTO addContact(@RequestParam String username, @RequestParam String myUsername) {
+	  //TODO-Guillaume: aucune vérification ici ?
 	  
 	  return contactService.addContact(username, myUsername);
 		
@@ -47,13 +43,14 @@ public class TransactionController {
    * @param transaction
    * @return
    */
-  @CrossOrigin(origins = "http://localhost:5500")
   @PostMapping(value = "/transaction/make")
   public TransactionDTO makeTransaction(@RequestBody Transaction transaction) {
 	  
-    return transactionService.makeTransaction(transaction);
+	  //TODO-Guillaume: aucune vérification ici ?
+	  //TODO-Guillaume: j'ai vu que la méthode makeTransaction vérifiait bien les choses, mais attention le nom de la méthode ne le stipule pas
+	  //TODO-Guillaume: je me suis fais avoir au début, avant de cliquer sur la méthode je pensais qu'elle était exécuté sans vérifications
+	  return transactionService.makeTransactionWithInputVerification(transaction);
  
-  	
   }
   
   /**
@@ -61,27 +58,26 @@ public class TransactionController {
    * @param id
    * @return
    */
-  @CrossOrigin(origins = "http://localhost:5500")
   @GetMapping(value = "/transaction/{id}")
   public FullTransactionDTO getTransactionById(@PathVariable Long id){
 	  
+	  if(id == null) {
+		  return null;
+	  }
+	  
 	  Transaction transaction = transactionService.getTransac(id);
 	  
-	  FullTransactionDTO fullTransactionDTO = new FullTransactionDTO();
-   
-	  fullTransactionDTO.setId(transaction.getId());
+	  //TODO-Guillaume: vérification du NotNull ? qui nous dit que l'id donné est bien existant en db ?
 	  
-	  fullTransactionDTO.setAmount(transaction.getAmount());
-	  
-	  fullTransactionDTO.setUserSender(transaction.getUserSenderId().getId());
-
-	  fullTransactionDTO.setUserReceiver(transaction.getUserReceiverId().getId());
-
-	  fullTransactionDTO.setBankSender(transaction.getBankSenderId().getId());
-
-	  fullTransactionDTO.setBankReceiver(transaction.getBankReceiverId().getId());
-	  
-	  fullTransactionDTO.setDescription(transaction.getDescription());
+	  //TODO-Guillaume: utilisation du @Builder Lombok sera préférable 
+	  FullTransactionDTO fullTransactionDTO = FullTransactionDTO.builder()
+			  .id(transaction.getId())
+			  .amount(transaction.getAmount())
+			  .userSender(transaction.getBankSenderId().getUserId().getId())
+			  .userReceiver(transaction.getBankReceiverId().getUserId().getId())
+			  .bankSender(transaction.getBankSenderId().getUserId().getId())
+			  .bankReceiver(transaction.getBankReceiverId().getUserId().getId())
+			  .description(transaction.getDescription()).build();
 
 	  return fullTransactionDTO;
 

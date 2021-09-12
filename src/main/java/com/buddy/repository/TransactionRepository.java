@@ -13,7 +13,7 @@ import com.buddy.model.Users;
 
 @Repository
 @Transactional
-public interface TransactionRepo extends JpaRepository<Transaction, Long>{
+public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 	
 	List<Transaction> findByUserReceiverIdAndUserSenderId(Users userIdSender, Users userIdReceiver);
 	

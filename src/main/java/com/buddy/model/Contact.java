@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 		  property = "id",
 		  resolver = EntityIdResolver.class,
 	      scope = Contact.class)
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity @Data @NoArgsConstructor @AllArgsConstructor@Builder
 public class Contact implements Serializable{
 	
 	 /**

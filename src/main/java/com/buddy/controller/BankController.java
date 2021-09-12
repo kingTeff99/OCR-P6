@@ -4,12 +4,10 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,9 +16,6 @@ import com.buddy.model.BankAccount;
 import com.buddy.service.BankService;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5500")
-
 public class BankController {
 	
 	@Autowired
@@ -31,13 +26,19 @@ public class BankController {
 	 * @param bankAccount
 	 * @return Bank account
 	 */
-	@PostMapping("/bankaccount/create")
+	//TODO-Guillaume: bankaccount sont deux mots séparés, on préfèrera: /bank-account/create
+	@PostMapping("/bank-account/create")
 	public ResponseEntity<BankAccount> createBankAccount(@RequestBody BankAccount bankAccount) {
 		
 		URI uri = URI.create(ServletUriComponentsBuilder
 				.fromCurrentContextPath()
-				.path("api/bankaccount/create")
+				.path("/bank-account/create")
 				.toUriString());
+		
+		//TODO-Guillaume: aucune vérification ici ?
+		if(bankAccount == null) {
+			return null;
+		}
 		
 		return ResponseEntity.created(uri)
 				.body(bankService.createBankAccount(bankAccount));
@@ -49,11 +50,16 @@ public class BankController {
 	 * @param userId
 	 * @return bank account
 	 */
-	@CrossOrigin(origins = "http://localhost:5500")
-	@GetMapping("/bankaccount/{userId}")
+	//TODO-Guillaume: bankaccount sont deux mots séparés, on préfèrera: /bank-account/create
+	@GetMapping("/bank-account/{userId}")
 	public BankDTO getBankAccountByUserId(@PathVariable Long userId){
   	
-      return bankService.getBankAccountDTOByUserId(userId);
+		//TODO-Guillaume: aucune vérification ici ? 
+		if(userId == null) {
+			return null;
+		}
+		
+		return bankService.getBankAccountDTOByUserId(userId);
       
 	}
 

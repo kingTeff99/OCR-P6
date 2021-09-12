@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.buddy.controller.ApiController.RegisterForm;
+import com.buddy.dto.RegisterFormDTO;
 import com.buddy.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -41,9 +41,9 @@ public class ApiControllerTest {
 	    @Test
 	    public void registerWithCorrectCredentials() throws Exception {
 	    	
-	    	RegisterForm registerForm = new RegisterForm("Cristiano", "Ronaldo","cr7@gmail.com", "123456", "123456");
+	    	RegisterFormDTO registerForm = new RegisterFormDTO("Cristiano", "Ronaldo","cr7@gmail.com", "123456", "123456");
 	    	
-	        mockMvc.perform(post("/api/register")
+	        mockMvc.perform(post("/register")
 	                .contentType(MediaType.APPLICATION_JSON_VALUE)
 	                .content(objectMapper.writeValueAsString(registerForm)))
 	                .andExpect(status().isCreated());

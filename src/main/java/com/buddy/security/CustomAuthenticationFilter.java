@@ -65,7 +65,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 		
 		User user = (User) authentication.getPrincipal();
 		
-//		Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
 		
 		Algorithm algorithm = Algorithm.HMAC256("jwtSecret".getBytes());
 

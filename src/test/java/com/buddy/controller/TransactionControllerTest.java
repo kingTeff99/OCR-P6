@@ -1,6 +1,9 @@
 package com.buddy.controller;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,7 +22,7 @@ import com.buddy.dto.TransactionDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
 import com.buddy.model.Users;
-import com.buddy.repository.TransactionRepo;
+import com.buddy.repository.TransactionRepository;
 import com.buddy.service.BankService;
 import com.buddy.service.ContactService;
 import com.buddy.service.TransactionService;
@@ -49,8 +52,7 @@ public class TransactionControllerTest {
 	UsersService usersService;
 	
 	@MockBean
-	TransactionRepo transactionRepo;
-	
+	TransactionRepository transactionRepo;
 	
 	
 	@Test
@@ -70,29 +72,29 @@ public class TransactionControllerTest {
 		bankService.createBankAccount(bankAccount2);
 		
 		Transaction transaction1 = new Transaction(1L, 100.0, user1, user2, bankAccount1, bankAccount2, 5.0 , "buy a ice cream");
-		transactionRepo.save(transaction1);
-		transactionService.makeTransaction(transaction1);
 		
-		TransactionDTO 	transactionDTO = new TransactionDTO();
-		transactionDTO.setId(transaction1.getId());
-		transactionDTO.setAmount(transaction1.getAmount());
-		transactionDTO.setDescription(transaction1.getDescription());
-
+		TransactionDTO transaction = transactionService.makeTransactionWithInputVerification(transaction1);
+		
+		TransactionDTO transactionDTO = TransactionDTO.builder()
+				.id(transaction1.getId())
+				.amount(transaction1.getAmount())
+				.description(transaction1.getDescription()).build();
 			
 		//WHEN
-//		when(transactionService.makeTransaction(transaction1)).thenReturn(transactionDTO);
+		when(transactionService.makeTransactionWithInputVerification(transaction1)).thenReturn(transactionDTO);
 
-		mockMvc.perform(post("/api/transaction/make")
-		       .contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/transaction/make")
+			   .accept(MediaType.APPLICATION_JSON)
+		       .contentType(MediaType.APPLICATION_JSON))
 //		       .content("{\"id\":2,\"balance\":500.0,\"userId\":1}"))
-	       	   .content(objectMapper.writeValueAsString(transaction1)))
+//	       	   .content(objectMapper.writeValueAsString(transaction1)))
 	       	   .andDo(print())
 		       .andExpect(status().isOk())
-		       .andExpect(jsonPath("$.id", is(transactionDTO.getId())))
-		       .andExpect(jsonPath("$.amount", is(transactionDTO.getAmount())))
-		       .andExpect(jsonPath("$.description", is(transactionDTO.getDescription())));
+		       .andExpect(jsonPath("$.id", is(transaction1.getId())))
+		       .andExpect(jsonPath("$.amount", is(transaction1.getAmount())))
+		       .andExpect(jsonPath("$.description", is(transaction1.getDescription())));
 				    
-//		verify(bankService, times(1)).getBankAccountDTOByUserId(1L);
+		verify(bankService, times(1)).getBankAccountDTOByUserId(1L);
 			
 	}
 

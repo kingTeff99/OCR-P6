@@ -5,11 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +21,6 @@ import com.buddy.dto.BankDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Users;
 import com.buddy.service.BankService;
-import com.buddy.service.TransactionService;
 import com.buddy.service.UsersService;
 
 @WebMvcTest(controllers = BankController.class)
@@ -57,7 +53,7 @@ public class BankControllerTest {
 	    //WHEN
 	    when(bankService.getBankAccountDTOByUserId(1L)).thenReturn(bankDTO);
 
-	    mockMvc.perform(get("/api/bankaccount/{userId}", 1)
+	    mockMvc.perform(get("/bank-account/{userId}", 1L)
 			       .contentType(MediaType.APPLICATION_JSON))
 			       .andExpect(status().isOk())
 			       .andExpect(jsonPath("$.id", is(1)))

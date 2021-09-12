@@ -19,9 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
 import com.buddy.model.Users;
-import com.buddy.repository.BankRepo;
-import com.buddy.repository.TransactionRepo;
-import com.buddy.repository.UserRepo;
+import com.buddy.repository.BankRepository;
+import com.buddy.repository.TransactionRepository;
+import com.buddy.repository.UserRepository;
 
 @ActiveProfiles("test")
 @TestPropertySource("classpath:application-test.properties")
@@ -30,13 +30,13 @@ import com.buddy.repository.UserRepo;
 public class TransactionServiceTest {
 	
 	@Autowired
-	private UserRepo userRepo;
+	private UserRepository userRepo;
 	
 	@Autowired
-	private BankRepo bankRepo;
+	private BankRepository bankRepo;
 	
 	@Autowired
-	private TransactionRepo transactionRepo;
+	private TransactionRepository transactionRepo;
 	
 	@BeforeEach
 	public void setup() {
@@ -52,13 +52,13 @@ public class TransactionServiceTest {
 		Users user2 = new Users(null, "Smith", "Wesson", "smithwesson@gmail.com", "1234");
 		userRepo.save(user2);
 			
-		BankAccount bankAccount1 = new BankAccount(1L, 500.0, user1);
+		BankAccount bankAccount1 = new BankAccount(null, 500.0, user1);
 		bankRepo.save(bankAccount1);
 		
-		BankAccount bankAccount2 = new BankAccount(2L, 400.0, user2);
+		BankAccount bankAccount2 = new BankAccount(null, 400.0, user2);
 		bankRepo.save(bankAccount2);
 		
-		Optional<Transaction> optTransaction = Optional.ofNullable(new Transaction(1L, 100.0, user1, user2, bankAccount1, bankAccount2, 5.0 , "buy a ice cream"));
+		Optional<Transaction> optTransaction = Optional.ofNullable(new Transaction(1L, 100.0,user1, user2, bankAccount1, bankAccount2, 5.0 , "buy a ice cream"));
 		transactionRepo.save(optTransaction.get());
 		
 		//THEN
@@ -81,8 +81,8 @@ public class TransactionServiceTest {
 		BankAccount bankAccount2 = new BankAccount(null, 500.0, user2);
 		bankRepo.save(bankAccount2);
 		
-		Transaction transaction1 = new Transaction(null, 100.0, user1, user2
-				, bankAccount1, bankAccount2, 5.0 , "buy a soda");
+		Transaction transaction1 = new Transaction(null, 100.0,user1, user2,
+				bankAccount1, bankAccount2, 5.0 , "buy a soda");
 		transactionRepo.save(transaction1);
 		
 		List<Transaction> transactionList = Arrays.asList(transaction1);
@@ -108,8 +108,8 @@ public class TransactionServiceTest {
 		BankAccount bankAccount2 = new BankAccount(null, 400.0, user2);
 		bankRepo.save(bankAccount2);
 		
-		Transaction transaction1 = new Transaction(null, 100.0, user1, user2
-				, bankAccount1, bankAccount2, 5.0 , "buy a ice cream");
+		Transaction transaction1 = new Transaction(null, 100.0,user1, user2,
+				bankAccount1, bankAccount2, 5.0 , "buy a ice cream");
 		transactionRepo.save(transaction1);
 		
 		List<Transaction> transactionList = Arrays.asList(transaction1);

@@ -12,7 +12,7 @@ import com.buddy.model.Users;
 
 @Repository
 @Transactional
-public interface BankRepo extends JpaRepository<BankAccount, Long> {
+public interface BankRepository extends JpaRepository<BankAccount, Long> {
 	
 	Optional<BankAccount> findById(Long id);
 	

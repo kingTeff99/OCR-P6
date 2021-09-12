@@ -11,8 +11,8 @@ import com.buddy.dto.TransactionDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
 import com.buddy.model.Users;
-import com.buddy.repository.BankRepo;
-import com.buddy.repository.TransactionRepo;
+import com.buddy.repository.BankRepository;
+import com.buddy.repository.TransactionRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,19 +26,17 @@ public class TransactionService {
 	private BankService bankService;
 	
 	@Autowired
-	private BankRepo bankRepo;
+	private BankRepository bankRepo;
 	
 	@Autowired
-	private TransactionRepo transactionRepo;
+	private TransactionRepository transactionRepo;
 	
 	/**
 	 * Make a transaction
 	 * @param transaction
 	 * @return Transaction
 	 */
-	public TransactionDTO makeTransaction(Transaction transaction) {
-		
-		TransactionDTO transac = new TransactionDTO();
+	public TransactionDTO makeTransactionWithInputVerification(Transaction transaction) {
 		
         try {
 
@@ -65,13 +63,10 @@ public class TransactionService {
             
             log.info("Transaction {} made", transaction.getId());
             
-            transac.setId(transaction.getId());
+            TransactionDTO transactionDTO = TransactionDTO.builder().id(transaction.getId())
+            		.amount(transaction.getAmount()).description(transaction.getDescription()).build();
             
-            transac.setAmount(transaction.getAmount());
-            
-            transac.setDescription(transaction.getDescription());
-            
-            return transac;
+            return transactionDTO;
             
         } catch (Exception e){
         	
@@ -89,6 +84,10 @@ public class TransactionService {
 	 */
     public List<Transaction> getTransactions(Users userSenderId, Users userReceiverId) {
     	
+    	if((userSenderId == null) ||(userReceiverId == null)) {
+    		return null;
+    	}
+    	
     	return transactionRepo.findByUserReceiverIdAndUserSenderId(userSenderId, userReceiverId);
     	
     }
@@ -99,6 +98,10 @@ public class TransactionService {
      * @return List of transaction
      */
     public List<Transaction> getAllTransactionsForAnUser(Users userId) {
+    	
+    	if(userId == null) {
+    		return null;
+    	}
     	
     	List<Transaction> allTransaction = new ArrayList<>();
     	
@@ -116,6 +119,10 @@ public class TransactionService {
      * @return
      */
     public Transaction getTransac(Long id) {
+    	
+    	if(id == null) {
+    		return null;
+    	}
     	
         return transactionRepo.getById(id);
     	
