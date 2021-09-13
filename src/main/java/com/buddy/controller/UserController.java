@@ -46,7 +46,6 @@ public class UserController {
 	 */
 	@GetMapping("/users/{id}/infos")
 	public ResponseEntity<Optional<Users>> getPersonalInfosById(@PathVariable Long id) {
-		//TODO-Guillaume: vérification que l'utilisateur existe bien ? et renvoie d'une 404 NotFound sinon ?
 		
 		if(usersService.getUserById(id) == null) {
 			return ResponseEntity.notFound().build();
@@ -80,7 +79,7 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 			
 		}
-		 //TODO-Guillaume: utilisation du user.isPresent() pour vérifier que l'optionnel n'est pas null ? 404 NotFound otherwise?
+		
 	}
 	
 	/**
@@ -113,4 +112,5 @@ public class UserController {
 		return ResponseEntity.ok().build();
 		
 	}
+	
 }

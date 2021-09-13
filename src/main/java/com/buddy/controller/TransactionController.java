@@ -1,12 +1,18 @@
 package com.buddy.controller;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.buddy.dto.ContactDTO;
 import com.buddy.dto.FullTransactionDTO;
@@ -32,7 +38,6 @@ public class TransactionController {
    */
   @PostMapping(value = "/contact/add")
   public ContactDTO addContact(@RequestParam String username, @RequestParam String myUsername) {
-	  //TODO-Guillaume: aucune vérification ici ?
 	  
 	  return contactService.addContact(username, myUsername);
 		
@@ -43,12 +48,16 @@ public class TransactionController {
    * @param transaction
    * @return
    */
-  @PostMapping(value = "/transaction/make", headers = "Accept=application/json")
+  @RequestMapping(value = "/transaction/make", method = RequestMethod.POST , produces="application/json", consumes="application/json")
   public TransactionDTO makeTransaction(@RequestBody Transaction transaction) {
 	  
-	  //TODO-Guillaume: aucune vérification ici ?
-	  //TODO-Guillaume: j'ai vu que la méthode makeTransaction vérifiait bien les choses, mais attention le nom de la méthode ne le stipule pas
-	  //TODO-Guillaume: je me suis fais avoir au début, avant de cliquer sur la méthode je pensais qu'elle était exécuté sans vérifications
+//	  URI uri = URI.create(ServletUriComponentsBuilder
+//				.fromCurrentContextPath()
+//				.path("/transaction/make")
+//				.toUriString());
+//	  
+//	  return ResponseEntity.created(uri).body(transactionService.makeTransactionWithInputVerification(transaction));
+	  
 	  return transactionService.makeTransactionWithInputVerification(transaction);
  
   }
@@ -67,9 +76,6 @@ public class TransactionController {
 	  
 	  Transaction transaction = transactionService.getTransac(id);
 	  
-	  //TODO-Guillaume: vérification du NotNull ? qui nous dit que l'id donné est bien existant en db ?
-	  
-	  //TODO-Guillaume: utilisation du @Builder Lombok sera préférable 
 	  FullTransactionDTO fullTransactionDTO = FullTransactionDTO.builder()
 			  .id(transaction.getId())
 			  .amount(transaction.getAmount())

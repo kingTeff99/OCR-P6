@@ -35,12 +35,10 @@ public class UsersService implements UserDetailsService {
 		
 		Users user = userRepo.findByUsername(username);
 		
-		 //TODO-Guillaume: /!\ .equals(null) ça fera une NullPointException il faut faire == null
 		if(user == null) {
 			
 			log.error("User not found in the DB");
 			
-			 //TODO-Guillaume: on préfèrera une NotFoundException plutôt qu'une Username, l'erreur est plus globale: on n'a pas trouvé ce qui était demandé
 			throw new NotFoundException("User not found in the DB");
 			
 		} else {
@@ -52,7 +50,6 @@ public class UsersService implements UserDetailsService {
 		
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
 
-		 //TODO-Guillaume: ? 
 	}
 	
 	/**

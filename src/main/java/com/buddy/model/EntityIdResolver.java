@@ -5,6 +5,9 @@ import javax.persistence.EntityManager;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdResolver;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class EntityIdResolver implements ObjectIdResolver {
 	
 	private EntityManager entityManager;

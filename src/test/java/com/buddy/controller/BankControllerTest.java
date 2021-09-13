@@ -23,6 +23,7 @@ import com.buddy.model.BankAccount;
 import com.buddy.model.Users;
 import com.buddy.service.BankService;
 import com.buddy.service.UsersService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = BankController.class)
 @RunWith(SpringRunner.class)
@@ -36,6 +37,9 @@ public class BankControllerTest {
 	
 	@MockBean
 	UsersService usersService;
+	
+	@Autowired
+	ObjectMapper objectMapper;
 	
 	@Test
 	public void getBankAccountByUserIdTest() throws Exception {
@@ -76,15 +80,12 @@ public class BankControllerTest {
 		BankAccount bankAccount1 = new BankAccount(2L, 500.0, user1);
 		bankService.createBankAccount(bankAccount1);
 		
-	    //WHEN
-//	    when(bankService.createBankAccount(bankAccount1)).thenReturn();
-
+		//THEN
 	    this.mockMvc.perform(post("http://localhost:8080/bank-account/create")
 			       .contentType(MediaType.APPLICATION_JSON)
-			       .content("{\"id\":2,\"balance\":500.0,\"userId\":1}"))
-			       .andExpect(status().isOk());
+    	   		   .content(objectMapper.writeValueAsString(bankAccount1)))
+			       .andExpect(status().isCreated());
 			    
-//	    verify(bankService, times(1)).createBankAccount(bankAccount1);
 		
 	}
 

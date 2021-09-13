@@ -26,8 +26,6 @@ public class ApiController {
 	 * @return
 	 */
 	@PostMapping("/register")
-	//TODO-Guillaume: RegisterForm -> RegisterFormDto, c'est plus "clean" dans le sens où on indique clairement que cette classe est utilisée en tant que DTO
-	//TODO-Guillaume: typiquement, on peut avoir: HumainEntity (MySQL), HumainDto (HTTP), et Humain tout court, qui serait une classe utilisée dans les DTO par exemple
 	public ResponseEntity<Users> register(@RequestBody RegisterFormDTO registerFormDTO) {
 		
 		URI uri = URI.create(ServletUriComponentsBuilder
@@ -36,17 +34,14 @@ public class ApiController {
 		if(!registerFormDTO.getPassword().equals(registerFormDTO.getRepassword())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-			//TODO-Guillaume: not a RunTimeException, ça sera une BadRequest ! Tout simplement parce que l'utilisateur a envoyé une requête, qui ne remplis pas les conditions du endpoint
+		
 		Users user = usersService.getUser(registerFormDTO.getUsername());
 		
-		//TODO-Guillaume: idem ici, ça sera plutôt une HTTP 409 Conflict, car l'user à envoyé un username qui existe déjà donc on ne peut pas considérer ça comme une "BadRequest"
-		//TODO-Guillaume: en soit, il a bon, c'est juste qu'il a manqué de chance sur la sélection de son username
 		if(user != null) {
 			return ResponseEntity.status(HttpStatus.CONFLICT)
 					.build();
 		}
 		
-		//TODO-Guillaume: utiliser @Builder de Lombok (ajout de @Builder sur la classe Users, et ensuite: "Users.builder().username(.userForm.getUsername()).build();")
 		Users users = Users.builder().username(registerFormDTO.getUsername())
 				.password(registerFormDTO.getPassword())
 				.firstName(registerFormDTO.getFirstName())
@@ -56,5 +51,4 @@ public class ApiController {
 		
 	}
 	
-	//TODO-Guillaume: on préfèrera faire un package: com.buddy.dto dans lequel on mettra les classes DTO
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,16 +28,14 @@ public class BankController {
 	 * @param bankAccount
 	 * @return Bank account
 	 */
-	//TODO-Guillaume: bankaccount sont deux mots séparés, on préfèrera: /bank-account/create
-	@PostMapping("/bank-account/create")
-	public ResponseEntity<BankAccount> createBankAccount(@RequestBody BankAccount bankAccount) {
+	@RequestMapping(value = "/bank-account/create", method= RequestMethod.POST, produces="application/json", consumes="application/json")
+	public ResponseEntity<BankAccount> createBankAccount(@RequestBody BankAccount bankAccount ) {
 		
 		URI uri = URI.create(ServletUriComponentsBuilder
 				.fromCurrentContextPath()
 				.path("/bank-account/create")
 				.toUriString());
 		
-		//TODO-Guillaume: aucune vérification ici ?
 		if(bankAccount == null) {
 			return null;
 		}
@@ -50,11 +50,9 @@ public class BankController {
 	 * @param userId
 	 * @return bank account
 	 */
-	//TODO-Guillaume: bankaccount sont deux mots séparés, on préfèrera: /bank-account/create
 	@GetMapping("/bank-account/{userId}")
 	public BankDTO getBankAccountByUserId(@PathVariable Long userId){
   	
-		//TODO-Guillaume: aucune vérification ici ? 
 		if(userId == null) {
 			return null;
 		}

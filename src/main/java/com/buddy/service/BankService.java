@@ -34,7 +34,6 @@ public class BankService {
 	}
 	
 	
-	
 	/**
 	 * Get a bank account with the user id
 	 * @param userId
