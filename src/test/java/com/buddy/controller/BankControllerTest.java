@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -65,26 +66,26 @@ public class BankControllerTest {
 		
 	}
 	
-//	@Test
-//	public void createBankAccountTest() throws Exception {
-//		
-//		//GIVEN
-//		Users user1 = new Users(null, "Jojo", "affreux", "jojoaffreux@gmail.com", "1234");
-//		usersService.saveUser(user1);
-//		
-//		BankAccount bankAccount1 = new BankAccount(2L, 500.0, user1);
-//		bankService.createBankAccount(bankAccount1);
-//		
-//	    //WHEN
-////	    when(bankService.createBankAccount(bankAccount1)).thenReturn();
-//
-//	    this.mockMvc.perform(post("http://localhost:8080/api/bankaccount/create")
-//			       .contentType(MediaType.APPLICATION_JSON_VALUE)
-//			       .content("{\"id\":2,\"balance\":500.0,\"userId\":1}"))
-//			       .andExpect(status().isOk());
-//			    
-////	    verify(bankService, times(1)).createBankAccount(bankAccount1);
-//		
-//	}
+	@Test
+	public void createBankAccountTest() throws Exception {
+		
+		//GIVEN
+		Users user1 = new Users(null, "Jojo", "affreux", "jojoaffreux@gmail.com", "1234");
+		usersService.saveUser(user1);
+		
+		BankAccount bankAccount1 = new BankAccount(2L, 500.0, user1);
+		bankService.createBankAccount(bankAccount1);
+		
+	    //WHEN
+//	    when(bankService.createBankAccount(bankAccount1)).thenReturn();
+
+	    this.mockMvc.perform(post("http://localhost:8080/bank-account/create")
+			       .contentType(MediaType.APPLICATION_JSON)
+			       .content("{\"id\":2,\"balance\":500.0,\"userId\":1}"))
+			       .andExpect(status().isOk());
+			    
+//	    verify(bankService, times(1)).createBankAccount(bankAccount1);
+		
+	}
 
 }

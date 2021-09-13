@@ -43,7 +43,7 @@ public class TransactionController {
    * @param transaction
    * @return
    */
-  @PostMapping(value = "/transaction/make")
+  @PostMapping(value = "/transaction/make", headers = "Accept=application/json")
   public TransactionDTO makeTransaction(@RequestBody Transaction transaction) {
 	  
 	  //TODO-Guillaume: aucune vérification ici ?

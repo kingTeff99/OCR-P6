@@ -84,7 +84,7 @@ public class TransactionControllerTest {
 		when(transactionService.makeTransactionWithInputVerification(transaction1)).thenReturn(transactionDTO);
 
 		mockMvc.perform(post("/transaction/make")
-			   .accept(MediaType.APPLICATION_JSON)
+//			   .accept(MediaType.APPLICATION_JSON)
 		       .contentType(MediaType.APPLICATION_JSON))
 //		       .content("{\"id\":2,\"balance\":500.0,\"userId\":1}"))
 //	       	   .content(objectMapper.writeValueAsString(transaction1)))
