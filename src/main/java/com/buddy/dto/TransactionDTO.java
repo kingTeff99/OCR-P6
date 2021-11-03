@@ -18,14 +18,6 @@ public class TransactionDTO {
 		
 	private Double amount;
 	
-//    private Long user1;
-//    
-//    private Long user2;
-//	
-//    private Long bank1;
-//    
-//    private Long bank2;
-	
 	private String description;
 	
 }

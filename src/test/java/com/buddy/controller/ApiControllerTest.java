@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = ApiController.class)
 @RunWith(SpringRunner.class)
+@ContextConfiguration(locations="com.buddy.config.Config.java")
 public class ApiControllerTest {
 	
 		@Autowired

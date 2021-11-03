@@ -1,12 +1,6 @@
 package com.buddy.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -18,9 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.buddy.dto.BankDTO;
+import com.buddy.dto.FullTransactionDTO;
 import com.buddy.dto.TransactionDTO;
-import com.buddy.model.BankAccount;
-import com.buddy.model.Transaction;
 import com.buddy.model.Users;
 import com.buddy.repository.TransactionRepository;
 import com.buddy.service.BankService;
@@ -65,13 +59,13 @@ public class TransactionControllerTest {
 		Users user2 = new Users(null, "Smith", "Wesson", "smithwesson@gmail.com", "1234");
 		usersService.saveUser(user2);
 			
-		BankAccount bankAccount1 = new BankAccount(1L, 500.0, user1);
+		BankDTO bankAccount1 = new BankDTO(1L, 500.0,1L, "johnali@gmail.com" );
 		bankService.createBankAccount(bankAccount1);
 		
-		BankAccount bankAccount2 = new BankAccount(2L, 400.0, user2);
+		BankDTO bankAccount2 = new BankDTO(2L, 400.0, 2L,"smithwesson@gmail.com");
 		bankService.createBankAccount(bankAccount2);
 		
-		Transaction transaction1 = new Transaction(1L, 100.0, user1, user2, bankAccount1, bankAccount2, 5.0 , "buy a ice cream");
+		FullTransactionDTO transaction1 = new FullTransactionDTO(1L, 100.0, 1L, 2L, 1L, 2L, 5.0 , "buy a ice cream");
 		transactionService.makeTransactionWithInputVerification(transaction1);
 
 //		TransactionDTO transaction = transactionService.makeTransactionWithInputVerification(transaction1);

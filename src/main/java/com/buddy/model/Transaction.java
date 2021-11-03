@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 		  property = "id",
 		  resolver = EntityIdResolver.class,
 	      scope = Transaction.class)
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity @Data @NoArgsConstructor @AllArgsConstructor@Builder
 public class Transaction implements Serializable{
 	
 	/**
@@ -35,19 +36,19 @@ public class Transaction implements Serializable{
     private Double amount;
     
 	@ManyToOne
-	@JoinColumn(name = "userSender_id")
+	@JoinColumn(name = "user_sender_id")
     private Users userSenderId;
     
 	@ManyToOne
-	@JoinColumn(name = "userReceiver_id")
+	@JoinColumn(name = "user_receiver_id")
     private Users userReceiverId;
 	
 	@ManyToOne
-	@JoinColumn(name = "bankSender_id")
+	@JoinColumn(name = "bank_sender_id")
     private BankAccount bankSenderId;
     
 	@ManyToOne
-	@JoinColumn(name = "bankReceiver_id")
+	@JoinColumn(name = "bank_receiver_id")
     private BankAccount bankReceiverId;
     
     private Double fees;

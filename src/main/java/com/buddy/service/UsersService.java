@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service @Transactional @Slf4j
 public class UsersService implements UserDetailsService {
 
-	
 	@Autowired
 	private UserRepository userRepo;
 	
@@ -60,7 +59,9 @@ public class UsersService implements UserDetailsService {
 	public Users getUser(String username) {
 		
 		if(username == null) {
+			
 			return null;
+			
 		}
 		
 		log.info("Fetching user {}", username);
@@ -77,8 +78,11 @@ public class UsersService implements UserDetailsService {
 	public Optional<Users> getUserById(Long id) {
 		
 		if(id == null) {
-			return null;
+			
+			return Optional.empty();
+			
 		}
+		
 		log.info("Users found");
 		
 		return userRepo.findById(id);
@@ -105,7 +109,9 @@ public class UsersService implements UserDetailsService {
 	public Users saveUser(Users users) {
 		
 		if(users == null) {
+			
 			return null;
+			
 		}
 		
 		log.info("Saving new user {} to the DB", users.getUsername());
@@ -124,7 +130,9 @@ public class UsersService implements UserDetailsService {
 	public Users updateUser(Users user) {
 		
 		if(user == null) {
+			
 			return null;
+			
 		}
 		
 		return userRepo.save(user);

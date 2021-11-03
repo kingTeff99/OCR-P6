@@ -18,13 +18,15 @@ public class FullTransactionDTO {
 	
 	private Double amount;
 	
-    private Long userSender;
+    private Long userSenderId;
     
-    private Long userReceiver;
+    private Long userReceiverId;
 	
-    private Long bankSender;
+    private Long bankSenderId;
     
-    private Long bankReceiver;
+    private Long bankReceiverId;
+    
+    private Double fees;
 	
 	private String description;
 

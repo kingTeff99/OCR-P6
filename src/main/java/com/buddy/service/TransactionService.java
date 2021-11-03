@@ -1,12 +1,14 @@
 package com.buddy.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.buddy.dto.FullTransactionDTO;
 import com.buddy.dto.TransactionDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Transaction;
@@ -36,44 +38,53 @@ public class TransactionService {
 	 * @param transaction
 	 * @return Transaction
 	 */
-	public TransactionDTO makeTransactionWithInputVerification(Transaction transaction) {
+	public TransactionDTO makeTransactionWithInputVerification(FullTransactionDTO transaction) {
 		
-        try {
-
-            if(contactService.verifyRelationship(transaction.getUserSenderId(), transaction.getUserReceiverId()) == null)
-                throw new Exception();
-            
-            BankAccount sender = bankService.getBankAccountByUserId(transaction.getUserSenderId().getId());
-            
-            BankAccount receiver = bankService.getBankAccountByUserId(transaction.getUserReceiverId().getId());
-
-            Double fees = Math.round((transaction.getAmount() * 0.05) * 100.0)/100.0;
-            
-            sender.setBalance( Math.round((sender.getBalance() - transaction.getAmount() - fees) * 100.0) / 100.0);
-            
-            receiver.setBalance( Math.round((receiver.getBalance() + transaction.getAmount()) * 100.0) / 100.0);
-            
-            transaction.setFees(fees);
-            
-            bankRepo.save(sender);
-            
-            bankRepo.save(receiver);
-            
-            transactionRepo.save(transaction);
-            
-            log.info("Transaction {} made", transaction.getId());
-            
-            TransactionDTO transactionDTO = TransactionDTO.builder().id(transaction.getId())
-            		.amount(transaction.getAmount()).description(transaction.getDescription()).build();
-            
-            return transactionDTO;
-            
-        } catch (Exception e){
-        	
-            e.printStackTrace();
-            
-            return null;
+		if(contactService.verifyRelationship(transaction.getUserSenderId()
+				, transaction.getUserReceiverId()) == null) 
+		{
+            	return null;
         }
+            
+        BankAccount sender = bankService.getBankAccountByUserId(
+        		transaction.getUserSenderId());
+            
+        BankAccount receiver = bankService.getBankAccountByUserId(
+        		transaction.getUserReceiverId());
+
+        Double fees = Math.round((transaction.getAmount() * 0.05) * 100.0)/100.0;
+            
+        sender.setBalance( Math.round(
+        		(sender.getBalance() - transaction.getAmount() - fees) * 100.0) / 100.0);
+            
+        receiver.setBalance( Math.round(
+        		(receiver.getBalance() + transaction.getAmount()) * 100.0) / 100.0);
+            
+        transaction.setFees(fees);
+            
+        Transaction transact = Transaction.builder()
+        		.amount(transaction.getAmount())
+            	.bankReceiverId(receiver)
+            	.bankSenderId(sender)
+            	.userReceiverId(receiver.getUserId())
+            	.userSenderId(sender.getUserId())
+            	.description(transaction.getDescription())
+            	.fees(transaction.getFees())
+            	.build();
+            
+        transactionRepo.save(transact);
+        
+        bankRepo.save(sender);
+        
+        bankRepo.save(receiver);
+            
+        log.info("Transaction {} made", transact.getId());
+            
+        return TransactionDTO.builder()
+        			.id(transaction.getId())
+            		.amount(transaction.getAmount())
+            		.description(transaction.getDescription())
+            		.build();
     }
 
 	/**
@@ -85,10 +96,11 @@ public class TransactionService {
     public List<Transaction> getTransactions(Users userSenderId, Users userReceiverId) {
     	
     	if((userSenderId == null) ||(userReceiverId == null)) {
-    		return null;
+    		return Collections.emptyList();
     	}
     	
-    	return transactionRepo.findByUserReceiverIdAndUserSenderId(userSenderId, userReceiverId);
+    	return transactionRepo.findByUserReceiverIdAndUserSenderId(userSenderId
+    			, userReceiverId);
     	
     }
     
@@ -100,7 +112,7 @@ public class TransactionService {
     public List<Transaction> getAllTransactionsForAnUser(Users userId) {
     	
     	if(userId == null) {
-    		return null;
+    		return Collections.emptyList();
     	}
     	
     	List<Transaction> allTransaction = new ArrayList<>();

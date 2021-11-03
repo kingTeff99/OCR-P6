@@ -44,11 +44,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		
-		
 		String username = request.getParameter("username");
+		
 		String password = request.getParameter("password");
 		
 		log.info("Username is: {}", username);
+		
 		log.info("Password is: {}", password);
 		
 		UsernamePasswordAuthenticationToken authToken 
@@ -57,17 +58,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 		return authenticationManager.authenticate(authToken);
 	}
 	
-	
-
 	@Override
-	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			Authentication authentication) throws IOException, ServletException {
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response
+			, FilterChain chain,Authentication authentication) 
+					throws IOException, ServletException {
 		
 		User user = (User) authentication.getPrincipal();
 		
-		
 		Algorithm algorithm = Algorithm.HMAC256("jwtSecret".getBytes());
-
 		
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
@@ -84,13 +82,19 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .sign(algorithm);
         
         response.setHeader("access_token", access_token);
+        
         response.setHeader("refresh_token", refresh_token);
+        
         Map<String, String> tokens = new HashMap<>();
         
         tokens.put("access_token", access_token);
+        
         tokens.put("refresh_token", refresh_token);
+        
         response.setContentType("APPLICATION_JSON_VALUE");
+        
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        
 	}
 	
 }

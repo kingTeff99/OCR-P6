@@ -45,13 +45,15 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/users/{id}/infos")
-	public ResponseEntity<Optional<Users>> getPersonalInfosById(@PathVariable Long id) {
+	public ResponseEntity<Users> getPersonalInfosById(@PathVariable Long id) {
 		
-		if(usersService.getUserById(id) == null) {
+		Optional<Users> optUsers = usersService.getUserById(id);
+		
+		if(optUsers == null || optUsers.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.ok().body(usersService.getUserById(id));
+		return ResponseEntity.ok().body(optUsers.get());
       
 	}
 	

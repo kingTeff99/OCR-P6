@@ -35,11 +35,11 @@ public class Contact implements Serializable{
 	 private Long id;
 	 
 	 @ManyToOne
-	 @JoinColumn(name = "userRelating_id")
+	 @JoinColumn(name = "user_relating_id")
 	 private Users userRelatingId;
 	 
 	 @ManyToOne
-	 @JoinColumn(name = "userRelated_id")
+	 @JoinColumn(name = "user_related_id")
 	 private Users userRelatedId;
 	 
 }

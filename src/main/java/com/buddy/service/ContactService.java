@@ -28,17 +28,27 @@ public class ContactService {
 	 * @param userRelatedId
 	 * @return Contact
 	 */
-	public Contact verifyRelationship(Users userRelatingId, Users userRelatedId) {
+	public ContactDTO verifyRelationship(Long userRelatingId, Long userRelatedId) {
 		
 		if((userRelatingId == null) || (userRelatedId == null)) {
 			return null;
 		}
 		
 		log.info("Relationship verified");
+		
+		Users userRelatingIdContact = contactRepo.getById(userRelatingId).getUserRelatingId();
+		
+		Users userRelatedIdContact = contactRepo.getById(userRelatedId).getUserRelatingId();
 		 
-		return contactRepo
-				 .findByUserRelatingIdAndUserRelatedId(userRelatingId, userRelatedId);
-		 
+		Contact contact1 = contactRepo.findByUserRelatingIdAndUserRelatedId(userRelatingIdContact
+				, userRelatedIdContact);
+		
+		contactRepo.save(contact1);
+		
+		return ContactDTO.builder().id(contact1.getId())
+				.userRelatingId(contact1.getUserRelatingId().getId())
+				.userRelatedId(contact1.getUserRelatedId().getId())
+				.build();
 	 }
 	
 	 
@@ -65,11 +75,10 @@ public class ContactService {
 		
 		contactRepo.save(newContact);
 		 
-		ContactDTO newLink = ContactDTO.builder().id(newContact.getId())
+		return ContactDTO.builder().id(newContact.getId())
 		.userRelatedId(contactToAdd.getId())
 		.userRelatingId(mycontact.getId()).build();
 		
-		return newLink;
 	}
 	
 }

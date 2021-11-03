@@ -29,20 +29,27 @@ public class ApiController {
 	public ResponseEntity<Users> register(@RequestBody RegisterFormDTO registerFormDTO) {
 		
 		URI uri = URI.create(ServletUriComponentsBuilder
-				.fromCurrentContextPath().path("/register").toUriString());
+					 .fromCurrentContextPath()
+					 .path("/register")
+					 .toUriString());
 		
 		if(!registerFormDTO.getPassword().equals(registerFormDTO.getRepassword())) {
+			
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			
 		}
 		
 		Users user = usersService.getUser(registerFormDTO.getUsername());
 		
 		if(user != null) {
+			
 			return ResponseEntity.status(HttpStatus.CONFLICT)
 					.build();
+			
 		}
 		
-		Users users = Users.builder().username(registerFormDTO.getUsername())
+		Users users = Users.builder()
+				.username(registerFormDTO.getUsername())
 				.password(registerFormDTO.getPassword())
 				.firstName(registerFormDTO.getFirstName())
 				.lastName(registerFormDTO.getLastName()).build();

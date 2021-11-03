@@ -77,7 +77,7 @@ public class BankControllerTest {
 		Users user1 = new Users(null, "Jojo", "affreux", "jojoaffreux@gmail.com", "1234");
 		usersService.saveUser(user1);
 		
-		BankAccount bankAccount1 = new BankAccount(2L, 500.0, user1);
+		BankDTO bankAccount1 = new BankDTO(2L, 500.0, 2L, "jojoaffreux@gmail.com");
 		bankService.createBankAccount(bankAccount1);
 		
 		//THEN

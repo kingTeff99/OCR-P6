@@ -1,18 +1,12 @@
 package com.buddy.controller;
 
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.buddy.dto.ContactDTO;
 import com.buddy.dto.FullTransactionDTO;
@@ -48,18 +42,13 @@ public class TransactionController {
    * @param transaction
    * @return
    */
-  @RequestMapping(value = "/transaction/make", method = RequestMethod.POST , produces="application/json", consumes="application/json")
-  public TransactionDTO makeTransaction(@RequestBody Transaction transaction) {
+  @PostMapping(value = "/transaction/make", produces="application/json")
+  public TransactionDTO makeTransaction(@RequestBody FullTransactionDTO transaction) {
 	  
-//	  URI uri = URI.create(ServletUriComponentsBuilder
-//				.fromCurrentContextPath()
-//				.path("/transaction/make")
-//				.toUriString());
-//	  
-//	  return ResponseEntity.created(uri).body(transactionService.makeTransactionWithInputVerification(transaction));
-	  
+	  System.out.println(transaction);
+
 	  return transactionService.makeTransactionWithInputVerification(transaction);
- 
+	  
   }
   
   /**
@@ -76,16 +65,15 @@ public class TransactionController {
 	  
 	  Transaction transaction = transactionService.getTransac(id);
 	  
-	  FullTransactionDTO fullTransactionDTO = FullTransactionDTO.builder()
+	  return FullTransactionDTO.builder()
 			  .id(transaction.getId())
 			  .amount(transaction.getAmount())
-			  .userSender(transaction.getBankSenderId().getUserId().getId())
-			  .userReceiver(transaction.getBankReceiverId().getUserId().getId())
-			  .bankSender(transaction.getBankSenderId().getUserId().getId())
-			  .bankReceiver(transaction.getBankReceiverId().getUserId().getId())
+			  .userSenderId(transaction.getBankSenderId().getUserId().getId())
+			  .userReceiverId(transaction.getBankReceiverId().getUserId().getId())
+			  .bankSenderId(transaction.getBankSenderId().getUserId().getId())
+			  .bankReceiverId(transaction.getBankReceiverId().getUserId().getId())
+			  .fees(transaction.getFees())
 			  .description(transaction.getDescription()).build();
-
-	  return fullTransactionDTO;
 
   }
   
