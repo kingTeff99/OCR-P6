@@ -1,13 +1,11 @@
 package com.buddy.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.buddy.repository.BankRepository;
 import com.buddy.security.WebSecurityConfig;
 
 @Configuration
@@ -20,5 +18,10 @@ public class Config extends WebMvcConfigurerAdapter {
         registry.addMapping("/**")
                 .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
     }
+	
+//	@Bean
+//	public BankRepository bankRepository() {
+//		return new BankRepository();
+//	}
 	
 }

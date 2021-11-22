@@ -28,10 +28,10 @@ public class TransactionService {
 	private BankService bankService;
 	
 	@Autowired
-	private BankRepository bankRepo;
+	private BankRepository bankRepository;
 	
 	@Autowired
-	private TransactionRepository transactionRepo;
+	private TransactionRepository transactionRepository;
 	
 	/**
 	 * Make a transaction
@@ -72,11 +72,11 @@ public class TransactionService {
             	.fees(transaction.getFees())
             	.build();
             
-        transactionRepo.save(transact);
+        transactionRepository.save(transact);
         
-        bankRepo.save(sender);
+        bankRepository.save(sender);
         
-        bankRepo.save(receiver);
+        bankRepository.save(receiver);
             
         log.info("Transaction {} made", transact.getId());
             
@@ -99,7 +99,7 @@ public class TransactionService {
     		return Collections.emptyList();
     	}
     	
-    	return transactionRepo.findByUserReceiverIdAndUserSenderId(userSenderId
+    	return transactionRepository.findByUserReceiverIdAndUserSenderId(userSenderId
     			, userReceiverId);
     	
     }
@@ -117,9 +117,9 @@ public class TransactionService {
     	
     	List<Transaction> allTransaction = new ArrayList<>();
     	
-    	allTransaction.addAll(transactionRepo.findByUserReceiverId(userId));
+    	allTransaction.addAll(transactionRepository.findByUserReceiverId(userId));
     	
-    	allTransaction.addAll(transactionRepo.findByUserSenderId(userId));
+    	allTransaction.addAll(transactionRepository.findByUserSenderId(userId));
     	
     	return allTransaction;
     			
@@ -130,13 +130,13 @@ public class TransactionService {
      * @param id
      * @return
      */
-    public Transaction getTransac(Long id) {
+    public Transaction getOneTransaction(Long id) {
     	
     	if(id == null) {
     		return null;
     	}
     	
-        return transactionRepo.getById(id);
+        return transactionRepository.getById(id);
     	
     }
     

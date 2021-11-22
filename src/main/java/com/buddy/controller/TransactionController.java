@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.buddy.dto.ContactDTO;
+import com.buddy.dto.ContactFormulaDTO;
 import com.buddy.dto.FullTransactionDTO;
 import com.buddy.dto.TransactionDTO;
 import com.buddy.model.Transaction;
@@ -30,10 +30,10 @@ public class TransactionController {
    * @param ownUserId
    * @return contact
    */
-  @PostMapping(value = "/contact/add")
-  public ContactDTO addContact(@RequestParam String username, @RequestParam String myUsername) {
+  @PostMapping(value = "/contact/add",consumes="application/json", produces="application/json")
+  public ContactDTO addContact(@RequestBody ContactFormulaDTO contactFormulaDTO) {
 	  
-	  return contactService.addContact(username, myUsername);
+	  return contactService.addContact(contactFormulaDTO);
 		
   }
 
@@ -63,7 +63,7 @@ public class TransactionController {
 		  return null;
 	  }
 	  
-	  Transaction transaction = transactionService.getTransac(id);
+	  Transaction transaction = transactionService.getOneTransaction(id);
 	  
 	  return FullTransactionDTO.builder()
 			  .id(transaction.getId())

@@ -26,7 +26,7 @@ public class UserController {
 	private UsersService usersService;
 	
 	@Autowired
-	private ContactRepository contactRepo;
+	private ContactRepository contactRepository;
 	
 	/**
 	 * GET : Get all users
@@ -47,13 +47,13 @@ public class UserController {
 	@GetMapping("/users/{id}/infos")
 	public ResponseEntity<Users> getPersonalInfosById(@PathVariable Long id) {
 		
-		Optional<Users> optUsers = usersService.getUserById(id);
+		Optional<Users> optionalUsers = usersService.getUserById(id);
 		
-		if(optUsers == null || optUsers.isEmpty()) {
+		if(optionalUsers.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.ok().body(optUsers.get());
+		return ResponseEntity.ok().body(optionalUsers.get());
       
 	}
 	
@@ -69,12 +69,12 @@ public class UserController {
 			return null;
 		}
 		
-		Optional<Users> user = usersService.getUserById(id);
+		Optional<Users> optionalUsers = usersService.getUserById(id);
 		
-		if(user.isPresent()) {
+		if(optionalUsers.isPresent()) {
 			
 			return ResponseEntity.ok()
-					.body(contactRepo.findByUserRelatedId(user.get()));
+					.body(contactRepository.findByUserRelatedId(optionalUsers.get()));
 
 		} else {
 			

@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,55 +23,27 @@ import com.buddy.repository.UserRepository;
 @DataJpaTest
 public class BankServiceTest {
 	
-	 @BeforeEach
-	 public void setUp() {
-		 
-	 }
-
 	 @Autowired
-	 private UserRepository userRepo;
+	 private UserRepository userRepository;
 	 
 	 @Autowired
-	 private BankRepository bankRepo;
+	 private BankRepository bankRepository;
 
-//	 @Autowired
-//	 private TestEntityManager entityManager;
-	 
 	 @Test
 	 public void findBankAccountTest() {
 		 
 		 Users user1 = new Users(null, "John", "Ali", "johnali@gmail.com", "1234");
-		 userRepo.save(user1);
+		 userRepository.save(user1);
 		 
 		 BankAccount bankAccount1 = new BankAccount(1L, 500.0, user1);
-		 bankRepo.save(bankAccount1);
+		 bankRepository.save(bankAccount1);
 		 
 		 Optional<BankAccount> optBank = Optional.ofNullable(bankAccount1);
 		 
-		 Optional<BankAccount> bank1 = bankRepo.findById(1L);
+		 Optional<BankAccount> bank1 = bankRepository.findById(1L);
 		 
 		 assertThat(bank1).isEqualTo(optBank);
 		 
 	 }
 	 
-//	 @Test
-//	 public void findBankAccountByUserIdTest() {
-//		 
-//		 Users user2 = new Users(null, "Paul", "Wall", "paulwall@gmail.com", "1234");
-//		 entityManager.persist(user2);
-////		 userRepo.save(user2);
-//		 
-//		 BankAccount bankAccount2 = new BankAccount(null, 500.0, user2);
-//		 entityManager.persist(bankAccount2);
-////		 bankRepo.save(bankAccount2);
-//		 
-//		 List<BankAccount> bankList = Arrays.asList(bankAccount2);
-//		 
-//		 List<BankAccount> findBankList = bankRepo.findByUserId(user2);
-//		 
-//		 assertThat(findBankList).isEqualTo(bankList);
-//		 
-//	 }
-	
-
 }

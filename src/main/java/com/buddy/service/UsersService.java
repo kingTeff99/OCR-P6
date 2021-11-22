@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UsersService implements UserDetailsService {
 
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -32,7 +32,7 @@ public class UsersService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws NotFoundException {
 		
-		Users user = userRepo.findByUsername(username);
+		Users user = userRepository.findByUsername(username);
 		
 		if(user == null) {
 			
@@ -66,7 +66,7 @@ public class UsersService implements UserDetailsService {
 		
 		log.info("Fetching user {}", username);
 		
-		return userRepo.findByUsername(username);
+		return userRepository.findByUsername(username);
 		
 	}
 	
@@ -85,7 +85,7 @@ public class UsersService implements UserDetailsService {
 		
 		log.info("Users found");
 		
-		return userRepo.findById(id);
+		return userRepository.findById(id);
 		
 	}
 	
@@ -97,7 +97,7 @@ public class UsersService implements UserDetailsService {
 		
 		log.info("Fetching all users");
 		
-		return userRepo.findAll();
+		return userRepository.findAll();
 		
 	}
 	
@@ -118,7 +118,7 @@ public class UsersService implements UserDetailsService {
 		
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
 		
-		return userRepo.save(users);
+		return userRepository.save(users);
 		
 	}
 	
@@ -135,7 +135,7 @@ public class UsersService implements UserDetailsService {
 			
 		}
 		
-		return userRepo.save(user);
+		return userRepository.save(user);
 		
 	}
 	
@@ -145,7 +145,7 @@ public class UsersService implements UserDetailsService {
 	 */
 	public void deleteUserById(Long id){
 		
-		userRepo.deleteById(id);
+		userRepository.deleteById(id);
 		
 	}
 

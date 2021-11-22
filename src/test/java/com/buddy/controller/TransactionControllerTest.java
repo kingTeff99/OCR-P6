@@ -1,6 +1,9 @@
 package com.buddy.controller;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -16,43 +19,43 @@ import com.buddy.dto.BankDTO;
 import com.buddy.dto.FullTransactionDTO;
 import com.buddy.dto.TransactionDTO;
 import com.buddy.model.Users;
-import com.buddy.repository.TransactionRepository;
+import com.buddy.repository.ContactRepository;
 import com.buddy.service.BankService;
 import com.buddy.service.ContactService;
 import com.buddy.service.TransactionService;
 import com.buddy.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = TransactionController.class)
+@WebMvcTest
 @RunWith(SpringRunner.class)
 public class TransactionControllerTest {
 	
 	@Autowired
-	MockMvc mockMvc;
+ 	private MockMvc mockMvc;
 	
 	@Autowired
-	ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 	
 	@MockBean
-	TransactionService transactionService;
+	private UsersService usersService;
 	
-	@MockBean
-	ContactService contactService;
+	@MockBean 
+	private BankService bankService;
 	
-	@MockBean
-	BankService bankService;
+	@MockBean 
+	private ContactService contactService;
 	
-	@MockBean
-	UsersService usersService;
+	@MockBean 
+	private ContactRepository contactRepository;
 	
-	@MockBean
-	TransactionRepository transactionRepo;
+	@MockBean 
+	private TransactionService transactionService;
 	
 	
 	@Test
 	public void makeTransactionTest() throws Exception {
 		
-		//GIVEN
+		//Arrange
 		Users user1 = new Users(null, "John", "Ali", "johnali@gmail.com", "1234");
 		usersService.saveUser(user1);
 		
@@ -68,29 +71,22 @@ public class TransactionControllerTest {
 		FullTransactionDTO transaction1 = new FullTransactionDTO(1L, 100.0, 1L, 2L, 1L, 2L, 5.0 , "buy a ice cream");
 		transactionService.makeTransactionWithInputVerification(transaction1);
 
-//		TransactionDTO transaction = transactionService.makeTransactionWithInputVerification(transaction1);
-		
 		TransactionDTO transactionDTO = TransactionDTO.builder()
 				.id(transaction1.getId())
 				.amount(transaction1.getAmount())
 				.description(transaction1.getDescription()).build();
-//			
-//		//WHEN
-//		when(transactionService.makeTransactionWithInputVerification(transaction1)).thenReturn(transactionDTO);
+			
+		//Act
+		when(transactionService.makeTransactionWithInputVerification(transaction1)).thenReturn(transactionDTO);
 
 		mockMvc.perform(post("/transaction/make")
-//			   .accept(MediaType.APPLICATION_JSON)
 		       .contentType(MediaType.APPLICATION_JSON)
-//		       .content("{\"id\":2,\"balance\":500.0,\"userId\":1}"))
 	       	   .content(objectMapper.writeValueAsString(transaction1)))
-//	       	   .andDo(print())
-		       .andExpect(status().isOk());
-//		       .andExpect(jsonPath("$.id", is(transaction1.getId())))
-//		       .andExpect(jsonPath("$.amount", is(transaction1.getAmount())))
-//		       .andExpect(jsonPath("$.description", is(transaction1.getDescription())));
+		       .andExpect(status().is2xxSuccessful())
+		       .andExpect(jsonPath("$.id", is(1)))
+		       .andExpect(jsonPath("$.amount", is(transaction1.getAmount())))
+		       .andExpect(jsonPath("$.description", is(transaction1.getDescription())));
 				    
-//		verify(bankService, times(1)).getBankAccountDTOByUserId(1L);
-			
 	}
 
 }

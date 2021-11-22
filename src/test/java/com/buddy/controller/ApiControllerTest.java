@@ -9,17 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.buddy.dto.RegisterFormDTO;
+import com.buddy.repository.ContactRepository;
+import com.buddy.service.BankService;
+import com.buddy.service.ContactService;
+import com.buddy.service.TransactionService;
 import com.buddy.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = ApiController.class)
+@WebMvcTest
 @RunWith(SpringRunner.class)
-@ContextConfiguration(locations="com.buddy.config.Config.java")
 public class ApiControllerTest {
 	
 		@Autowired
@@ -30,6 +32,18 @@ public class ApiControllerTest {
 		
 		@MockBean
 		private UsersService usersService;
+		
+		@MockBean 
+		private BankService bankService;
+		
+		@MockBean 
+		private ContactService contactService;
+		
+		@MockBean 
+		private ContactRepository contactRepository;
+		
+		@MockBean 
+		private TransactionService transactionService;
 		
 	    @Test
 	    public void loginWithCorrectCredentialsButIsUnauthorized() throws Exception {
@@ -45,8 +59,8 @@ public class ApiControllerTest {
 	    	
 	    	RegisterFormDTO registerForm = new RegisterFormDTO("Cristiano", "Ronaldo","cr7@gmail.com", "123456", "123456");
 	    	
-	        mockMvc.perform(post("/register")
-	                .contentType(MediaType.APPLICATION_JSON_VALUE)
+	        this.mockMvc.perform(post("/register")
+	                .contentType(MediaType.APPLICATION_JSON)
 	                .content(objectMapper.writeValueAsString(registerForm)))
 	                .andExpect(status().isCreated());
 	    }

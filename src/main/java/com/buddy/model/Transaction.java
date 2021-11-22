@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @JsonIdentityInfo(
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 		  property = "id",
 		  resolver = EntityIdResolver.class,
 	      scope = Transaction.class)
-@Entity @Data @NoArgsConstructor @AllArgsConstructor@Builder
+@Entity @Data @NoArgsConstructor @AllArgsConstructor@EqualsAndHashCode@Builder
 public class Transaction implements Serializable{
 	
 	/**

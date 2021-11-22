@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.buddy.dto.ContactDTO;
+import com.buddy.dto.ContactFormulaDTO;
 import com.buddy.model.Contact;
 import com.buddy.model.Users;
 import com.buddy.repository.ContactRepository;
@@ -16,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ContactService {
 	
 	@Autowired
-	private ContactRepository contactRepo;
+	private ContactRepository contactRepository;
 	
 	@Autowired
 	private UsersService usersService;
@@ -36,14 +37,14 @@ public class ContactService {
 		
 		log.info("Relationship verified");
 		
-		Users userRelatingIdContact = contactRepo.getById(userRelatingId).getUserRelatingId();
+		Users userRelatingIdContact = contactRepository.getById(userRelatingId).getUserRelatingId();
 		
-		Users userRelatedIdContact = contactRepo.getById(userRelatedId).getUserRelatingId();
+		Users userRelatedIdContact = contactRepository.getById(userRelatedId).getUserRelatingId();
 		 
-		Contact contact1 = contactRepo.findByUserRelatingIdAndUserRelatedId(userRelatingIdContact
+		Contact contact1 = contactRepository.findByUserRelatingIdAndUserRelatedId(userRelatingIdContact
 				, userRelatedIdContact);
 		
-		contactRepo.save(contact1);
+		contactRepository.save(contact1);
 		
 		return ContactDTO.builder().id(contact1.getId())
 				.userRelatingId(contact1.getUserRelatingId().getId())
@@ -58,22 +59,22 @@ public class ContactService {
 	 * @param myUsername
 	 * @return Contact
 	 */
-	public ContactDTO addContact(String username, String myUsername) {
+	public ContactDTO addContact(ContactFormulaDTO contactFormulaDTO) {
 	 
-		if((username == null) || (myUsername == null)) {
+		if(contactFormulaDTO == null) {
 			return null;
 		}
 		
 		log.info("New Contact added");
 		 
-		Users contactToAdd = usersService.getUser(username);
+		Users contactToAdd = usersService.getUser(contactFormulaDTO.getUsername());
 		 
-		Users mycontact = usersService.getUser(myUsername);
+		Users mycontact = usersService.getUser(contactFormulaDTO.getMyUsername());
 		
 		Contact newContact = Contact.builder().userRelatedId(contactToAdd)
 				.userRelatingId(mycontact).build();
 		
-		contactRepo.save(newContact);
+		contactRepository.save(newContact);
 		 
 		return ContactDTO.builder().id(newContact.getId())
 		.userRelatedId(contactToAdd.getId())

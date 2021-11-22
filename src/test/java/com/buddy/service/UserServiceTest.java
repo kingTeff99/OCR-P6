@@ -3,7 +3,6 @@ package com.buddy.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +21,8 @@ import com.buddy.repository.UserRepository;
 @DataJpaTest
 public class UserServiceTest {
 	
-	 @BeforeEach
-	 public void setUp() {
-		 
-	 }
-
 	 @Autowired
-	 private UserRepository userRepo;
+	 private UserRepository userRepository;
 
 	 @Autowired
 	 private TestEntityManager entityManager;
@@ -36,9 +30,9 @@ public class UserServiceTest {
 	 @Test
 	 public void givenStudent_whenSave_thenGetOk() {
 		Users user1 = new Users(1L, "John", "Ali", "johnali@gmail.com", "1234");
-	   	userRepo.save(user1);
+	   	userRepository.save(user1);
 	    	
-	   	Users student2 = userRepo.getById(1L);
+	   	Users student2 = userRepository.getById(1L);
 	    assertEquals("John", student2.getFirstName());
 	    
 	 }
@@ -52,7 +46,7 @@ public class UserServiceTest {
 	    
 	   entityManager.flush();
 	    
-	   assertThat(userRepo.findByUsername("johnali@gmail.com")).isEqualTo(newUser);
+	   assertThat(userRepository.findByUsername("johnali@gmail.com")).isEqualTo(newUser);
 	    
 	 }
 
@@ -65,7 +59,7 @@ public class UserServiceTest {
 	   	Users user2 = new Users(null, "Jo", "A", "joa@gmail.com","1234");
 	   	entityManager.persist(user2);
 	    	 
-	    Iterable<Users> users = userRepo.findAll();
+	    Iterable<Users> users = userRepository.findAll();
 
 	    assertThat(users).hasSize(2).contains(user1, user2);
 	        

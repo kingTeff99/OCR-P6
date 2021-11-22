@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +25,27 @@ import com.buddy.repository.UserRepository;
 @DataJpaTest
 public class ContactServiceTest {
 	
-	 @BeforeEach
-	 public void setUp() {
-		 
-	 }
-
 	 @Autowired
-	 private UserRepository userRepo;
+	 private UserRepository userRepository;
 	 
 	 @Autowired
-	 private ContactRepository contactRepo;
+	 private ContactRepository contactRepository;
 	 
 	 
 	 @Test
 	 public void findByIdTest() {
 		 
 		 Users user1 = new Users(null, "Anna", "Ali", "AnnaAli@gmail.com", "1234");
-		 userRepo.save(user1);
+		 userRepository.save(user1);
 		 
 		 Users user2 = new Users(null, "Annie", "Dupon", "AnnieDupon@gmail.com","1234");
-		 userRepo.save(user2);
+		 userRepository.save(user2);
 		 
 		 Optional<Contact> optContact = Optional.ofNullable(new Contact(null, user1, user2));
 		 
-		 contactRepo.save(optContact.get());
+		 contactRepository.save(optContact.get());
 		 
-		 assertThat(contactRepo.findById(optContact.get().getId())).isEqualTo(optContact);
+		 assertThat(contactRepository.findById(optContact.get().getId())).isEqualTo(optContact);
 		 
 		 
 	 }
@@ -60,18 +54,18 @@ public class ContactServiceTest {
 	 public void findByUserRelatedIdTest() {
 		 
 		 Users user1 = new Users(null, "Paul", "Remy", "paulremy@gmail.com", "1234");
-		 userRepo.save(user1);
+		 userRepository.save(user1);
 		 
 		 Users user2 = new Users(null, "Pierre", "Dupond", "PierreDupond@gmail.com","1234");
-		 userRepo.save(user2);
+		 userRepository.save(user2);
 		 
 		 
 		 Contact contact1 = new Contact(1L, user1, user2);
-		 contactRepo.save(contact1);
+		 contactRepository.save(contact1);
 		 
 		 List<Contact> contactList = Arrays.asList(contact1);
 		 
-		 assertThat(contactRepo.findByUserRelatedId(user2)).isEqualTo(contactList);
+		 assertThat(contactRepository.findByUserRelatedId(user2)).isEqualTo(contactList);
 		 
 	 }
 	 
@@ -79,21 +73,21 @@ public class ContactServiceTest {
 	 public void findByUserRelatingIdTest() {
 		 
 		 Users user1 = new Users(null, "Paul", "Remy", "paulremy@gmail.com", "1234");
-		 userRepo.save(user1);
+		 userRepository.save(user1);
 		 
 		 Users user2 = new Users(null, "Pierre", "Dupond", "PierreDupond@gmail.com","1234");
-		 userRepo.save(user2);
+		 userRepository.save(user2);
 		 
 		 
 		 Contact contact1 = new Contact(1L, user1, user2);
-		 contactRepo.save(contact1);
+		 contactRepository.save(contact1);
 		 
 		 Contact contact2 = new Contact(2L, user2, user1);
-		 contactRepo.save(contact2);
+		 contactRepository.save(contact2);
 		 
 		 List<Contact> contactList = Arrays.asList(contact2);
 		 
-		 assertThat(contactRepo.findByUserRelatedId(user1)).isEqualTo(contactList);
+		 assertThat(contactRepository.findByUserRelatedId(user1)).isEqualTo(contactList);
 		 
 	 }
 

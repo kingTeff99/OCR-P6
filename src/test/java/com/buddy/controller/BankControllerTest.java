@@ -21,30 +21,42 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.buddy.dto.BankDTO;
 import com.buddy.model.BankAccount;
 import com.buddy.model.Users;
+import com.buddy.repository.ContactRepository;
 import com.buddy.service.BankService;
+import com.buddy.service.ContactService;
+import com.buddy.service.TransactionService;
 import com.buddy.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = BankController.class)
+@WebMvcTest
 @RunWith(SpringRunner.class)
 public class BankControllerTest {
 	
 	@Autowired
-	MockMvc mockMvc;
+ 	private MockMvc mockMvc;
 	
 	@MockBean
-	BankService bankService;
+	private UsersService usersService;
 	
-	@MockBean
-	UsersService usersService;
+	@MockBean 
+	private BankService bankService;
+	
+	@MockBean 
+	private ContactService contactService;
+	
+	@MockBean 
+	private ContactRepository contactRepository;
+	
+	@MockBean 
+	private TransactionService transactionService;
 	
 	@Autowired
-	ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 	
 	@Test
 	public void getBankAccountByUserIdTest() throws Exception {
 		
-		//GIVEN
+		//Arrange
 		Users user2 = new Users(null, "Smith", "Wesson", "smithwesson@gmail.com", "1234");
 		usersService.saveUser(user2);
 		
@@ -55,17 +67,17 @@ public class BankControllerTest {
 				, bankAccount1.getUserId().getId()
 				, bankAccount1.getUserId().getUsername());
 		
-	    //WHEN
+	    //Act
 	    when(bankService.getBankAccountDTOByUserId(1L)).thenReturn(bankDTO);
 
 	    mockMvc.perform(get("/bank-account/{userId}", 1L)
 			       .contentType(MediaType.APPLICATION_JSON))
-			       .andExpect(status().isOk())
+			       .andExpect(status().is2xxSuccessful())
 			       .andExpect(jsonPath("$.id", is(1)))
 			       .andExpect(jsonPath("$.balance", is(bankAccount1.getBalance())))
 			       .andExpect(jsonPath("$.userId", is(bankAccount1.getUserId().getId())))
 			       .andExpect(jsonPath("$.username", is(bankAccount1.getUserId().getUsername())));
-			    
+		//Assert    
 	    verify(bankService, times(1)).getBankAccountDTOByUserId(1L);
 		
 	}
@@ -73,15 +85,15 @@ public class BankControllerTest {
 	@Test
 	public void createBankAccountTest() throws Exception {
 		
-		//GIVEN
+		//Arrange
 		Users user1 = new Users(null, "Jojo", "affreux", "jojoaffreux@gmail.com", "1234");
 		usersService.saveUser(user1);
 		
 		BankDTO bankAccount1 = new BankDTO(2L, 500.0, 2L, "jojoaffreux@gmail.com");
 		bankService.createBankAccount(bankAccount1);
 		
-		//THEN
-	    this.mockMvc.perform(post("http://localhost:8080/bank-account/create")
+		//Act
+	    mockMvc.perform(post("/bank-account/create")
 			       .contentType(MediaType.APPLICATION_JSON)
     	   		   .content(objectMapper.writeValueAsString(bankAccount1)))
 			       .andExpect(status().isCreated());

@@ -16,10 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 public class BankService {
 	
 	@Autowired
-	private BankRepository bankRepo;
+	private BankRepository bankRepository;
 	
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepository userRepository;
 	
 	/**
 	 * Get a bank account with the user id
@@ -34,7 +34,7 @@ public class BankService {
 
 		log.info("Bank Account {} found", userId);
 		
-		return bankRepo.getById(userId);
+		return bankRepository.getById(userId);
 		
 	}
 	
@@ -49,7 +49,7 @@ public class BankService {
 			return null;
 		}
 		
-		BankAccount bankAccount = bankRepo.getById(userId);
+		BankAccount bankAccount = bankRepository.getById(userId);
 		
 		return BankDTO.builder().id(bankAccount.getId())
 				.balance(bankAccount.getBalance()).userId(bankAccount.getUserId().getId())
@@ -82,14 +82,14 @@ public class BankService {
 		
 		log.info("New Bank Account Created");
 		
-		Users user1 = userRepo.getById(bankDTO.getUserId());
+		Users user1 = userRepository.getById(bankDTO.getUserId());
 				
 		BankAccount bankAccount = BankAccount.builder()
 				.id(null)
 				.balance(bankDTO.getBalance())
 				.userId(user1).build();
 		
-		bankRepo.save(bankAccount);
+		bankRepository.save(bankAccount);
 		
 		return bankDTO;
 		
