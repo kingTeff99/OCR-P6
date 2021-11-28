@@ -11,5 +11,4 @@ C'est le back-end d'une application qui permet de payer/rembourser ses amis
 
 ## UML Diagram
 
-![diagra](https://user-images.githubusercontent.com/33994110/129046060-3153c03f-e0ad-446f-a9d5-5b7a81961eb8.png)
-
+<img width="674" alt="Screenshot 2021-11-28 at 20 11 13" src="https://user-images.githubusercontent.com/33994110/143782549-d823c37a-3f8f-46b5-8865-726a1b9ecdcb.png">
