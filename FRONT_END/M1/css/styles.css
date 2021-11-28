@@ -1,0 +1,90 @@
+/** COLORS **/
+/** HELPERS **/
+.clearfix:before, .clearfix::after {
+  content: " ";
+  display: table; }
+
+.clearfix::after {
+  clear: both; }
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; }
+
+.banner__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%; }
+  .banner__header .small__ball {
+    background-color: #444444;
+    height: 78px; }
+    .banner__header .small__ball h4 {
+      color: white;
+      text-align: center;
+      padding-top: -100px; }
+    .banner__header .small__ball .balls {
+      margin-left: 30px;
+      margin-top: -30px; }
+      .banner__header .small__ball .balls span {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        border-radius: 12px;
+        margin-right: 4px; }
+        .banner__header .small__ball .balls span.ball {
+          background-color: #666666; }
+
+.menu {
+  margin-top: 40px;
+  margin-left: 500px;
+  border: 1px solid #666666;
+  border-radius: 8px 8px;
+  width: 250px;
+  height: 450px; }
+  .menu .button {
+    margin: 30px 0 30px 15px;
+    margin-left: 60px;
+    width: 150px; }
+    .menu .button .button1 {
+      text-decoration: none;
+      background-color: #7db85e;
+      color: #fff;
+      border-radius: 10px 10px 10px 10px;
+      padding: 0.8em 1.2em; }
+  .menu .email {
+    margin: 30px 0 30px 15px;
+    letter-spacing: 0.3em;
+    line-height: 1.4em;
+    margin-top: 20px; }
+    .menu .email .email1 {
+      border: 1px solid #666666;
+      color: #666666;
+      border-radius: 10px 10px 10px 10px;
+      padding: 12px 50px 12px 10px; }
+  .menu .password {
+    margin: 30px 0 30px 15px;
+    letter-spacing: 0.3em;
+    line-height: 1.4em; }
+    .menu .password .password1 {
+      border: 1px solid #666666;
+      color: #666666;
+      border-radius: 10px 10px 10px 10px;
+      padding: 12px 50px 12px 10px; }
+  .menu .login {
+    margin: 30px 0 30px 15px;
+    margin-top: 160px;
+    margin-left: 60px; }
+    .menu .login .login1 {
+      text-decoration: none;
+      background-color: #3d71d5;
+      color: #fff;
+      border-radius: 10px 10px 10px 10px;
+      padding: 12px 50px; }
+
+/*# sourceMappingURL=styles.css.map */

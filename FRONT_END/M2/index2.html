@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title> Home </title>
+
+    <!-- Normalize pour que l'apparence soit la meme dans tous les navigateurs -->
+    <link rel="stylesheet" type="text/css" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+     <!-- FONT AWESOME pour download les icons et images -->
+     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+     crossorigin="anonymous"/> -->
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+     <!-- <IfModule mod_headers.c>
+        <FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css|css)$">
+          Header set Access-Control-Allow-Origin "*"
+        </FilesMatch>
+     </IfModule> -->
+</head>
+<body>
+    <header class="banner__header clearfix">
+        <div class="small__ball">
+            <h4 class="header_title">Pay My Buddy</h4>
+            <div class="balls">
+                <span class="ball"></span>
+                <span class="ball"></span>
+                <span class="ball"></span>
+            </div>
+        </div>              
+                      
+        <div class="banner__nav">
+            <div class="bud_button">
+                <span class="buddy_button">Pay My Buddy</span>
+            </div>
+            <div class="menu_home">
+                <ul>
+                    <li><a class="menu" id="home" href="#">Home</a></li>
+                    <li><a class="menu" id="transfer" href="#"><span class="trf">Transfer</span></a></li>
+                    <li><a class="menu" id="profile" href="#">Profile</a></li>
+                    <li><a class="menu" id="contact" href="#">Contact</a></li>
+                    <li><a class="menu" id="logoff" href="#">Log off</a></li>
+                </ul>
+            </div>
+        </div>        
+
+        <div class="banner__home">
+            <p> <span class="name">Home    /   </span>  Transfer </p>
+        </div>      
+    </header> 
+     
+    <section class="payment">
+        <form id="form" action="" method="post">
+        <div class="stage1">
+            <span class="send_money">Send Money</span> 
+            <button class="add_connexion" id="add_connexion" type="submit">Add Connexion</button>
+        </div>
+        <div class="stage2">
+            <select name="connex" id="connex">
+                <option selected="contact">Select A Connection</option>
+                <option value="1">Hayley</option>
+                <option value="2">Carla</option>
+                <option value="3">Smith</option>
+            </select>
+            <input type="number" name="money" id="money" placeholder="0€"/>
+            <button id="pay" class="pay" type="submit">Pay</button>
+        </div>
+        </form>     
+    </section>
+                
+    <section class="transaction clearfix">
+        <div class="row clearfix">
+          <div class="titre"><span class="my_transactions">My transactions</span></div>
+            <div class="history">
+                <div class="footer__column1">
+                    <span class="line1">Connections</span>
+                    <span class="line1">Description</span>
+                    <span class="line1">Amount</span>
+                </div>
+
+                <div class="footer__column2">
+                    <span class="line2">Hayley</span>
+                    <span class="line2">Restaurant bill share</span>
+                    <span class="line2">10€</span>
+                </div>
+
+                <div class="footer__column3">
+                    <span class="line3">Carla</span>
+                    <span class="line3">Trip money</span>
+                    <span class="line3">25€</span>
+                </div>
+
+                <div class="footer__column4">
+                    <span class="line4">Smith</span>
+                    <span class="line4">Movie tickets</span>
+                    <span class="line4">8€</span>
+                </div>
+            </div>
+
+            <!-- <table class="history">
+                <tr class="footer__column1">
+                    <th>Connections</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                <tr class="footer__column2">
+                    <td>Hayley</td>
+                    <td>Restaurant bill share</td>
+                    <td>10€</td>
+                </tr>
+                <tr class="footer__column3">
+                    <td>Carla</td>
+                    <td>Trip money</td>
+                    <td>25€</td>
+                </tr>
+                <tr class="footer__column4">
+                    <td>Smith</td>
+                    <td>Movie tickets</td>
+                    <td>8€</td>
+                </tr>
+                </table> -->
+        </div>
+    </section>
+
+    <!-- <footer class="numbers">
+        <span class="box" href="#"><i class="fas fa-chevron-double-left"></i></span>
+        <span class="box" href="#">1</span>
+        <span class="box" href="#">2</span>
+        <span class="box" href="#">3</span>
+        <span class="box" href="#">4</span>
+        <span class="box" href="#">5</span>
+        <span class="box" href="#"><i class="fas fa-chevron-double-right"></i></span>
+    </footer> -->
+
+    <footer class="numbers">
+        <a class="box" href="#"><i class="fas fa-chevron-double-left"></i></a>
+        <a class="box" href="#">1</a>
+        <a class="box" href="#">2</a>
+        <a class="box" href="#">3</a>
+        <a class="box" href="#">4</a>
+        <a class="box" href="#">5</a>
+        <a class="box" href="#"><i class="fas fa-chevron-double-right"></i></a>
+    </footer>
+</body>
+<script src="app.js"></script>
+
+</html>

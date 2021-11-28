@@ -1,0 +1,258 @@
+/** COLORS **/
+$grey_button: rgb(102, 102, 102);
+$grey: rgb(68, 68, 68);
+$light_grey: rgb(245, 245, 245);
+$white: #fff;
+$green: rgb(125,184, 94);
+$blue: rgb(61, 113, 213);
+$blue_number: rgb(80, 134, 221);
+
+/** HELPERS **/
+.clearfix:before, .clearfix::after {
+    content: " ";
+    display: table;
+}
+
+.clearfix::after {
+    clear: both;
+}
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+// Banner 
+.banner__header {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+
+    .small__ball{
+        background-color: $grey;
+        height : 78px;
+
+        h4 {
+            color: white;
+            text-align: center;
+            padding-top: -100px
+        }
+        .balls {
+            margin-left: 30px;
+            margin-top: -30px;
+
+            span {
+                display: inline-block;
+                height: 12px;
+                width: 12px;
+                border-radius: 12px;
+                margin-right: 4px;
+                
+                &.ball{
+                    background-color: $grey_button;
+                }
+            }
+        }
+    }
+
+    .banner__nav{
+        text-decoration: none;
+        display: inline-block;
+        height : 78px;
+
+        .bud_button {
+            margin: 30px 0 30px 15px;
+
+            .buddy_button {
+                text-decoration: none;
+                background-color: $green;
+                color: $white;
+                border-radius: 10px 10px 10px 10px;
+                padding: 0.8em 1.2em;
+            }
+        }
+
+        ul {
+            float: right;
+            margin-top: -50px;
+            
+            li{            
+                display: inline-block;
+                list-style: none;
+                margin-right: 1em;
+                border: $green;
+
+                .menu{
+                    text-decoration: none;
+                    color: $grey;
+
+                    .trf{
+                        color: $blue_number;
+                    }    
+                }
+                
+            }
+        }
+    }
+
+    .banner__home{
+        height : 78px;
+        background-color: $light_grey;
+        
+        p {
+            margin-top: 30px;
+            margin-left: 15px;
+
+            .name{
+                color: $blue_number;
+            }
+        }
+    }
+}
+
+.payment {
+        color: $grey;
+        height: 300px;
+
+        .stage1 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 70px;
+            font-size: 1.2em;
+
+            .send_money{
+                margin-top:30px;
+                margin-left: 15px;
+            }
+            .add_connexion{
+                background-color: $blue;
+                color: $white;
+                border-radius: 10px 10px 10px 10px;
+                padding: 0.8em 1.5em;
+            }
+
+        }
+
+        .stage2 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 25%;
+            margin-top: 10px;
+            margin-left: 230px;
+            padding: 100px 250px;
+            background-color:$light_grey;
+
+            #money {
+                margin-left: 3em;
+            }
+
+            .pay {
+                background-color: $green;
+                color: $white;
+                border-radius: 10px 10px 10px 10px;
+                padding: 0.8em 5em;
+                margin-left: 3em;
+                font-size: 1.3em;
+            }
+        }
+}
+
+.transaction {
+    margin-top: 40px;
+    margin-left: 200px;
+
+    .titre {
+        width: 500px;
+        margin-left: 50px;
+    }
+
+    .my_transactions {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+        display: inline-block;
+        color: $grey;
+    }
+
+   .history {
+       display: inline-block;
+       border: 3px solid $grey;
+    //    height: 200px;
+       width: 800px!important;
+       margin-left: 30px;
+       
+       .footer__column1 {
+           display: flex;
+           flex-direction: row;
+           justify-content: space-around;
+           align-content: stretch;
+           text-align: justify;
+           margin: 0 0;
+           padding: 40px 0;
+           width: 100%;
+           height: 100%;
+           color: $white;
+           background-color: $green;
+           
+       } 
+
+       .footer__column2 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-content: stretch;
+            text-align: justify;
+            margin: 0 0;
+            padding: 40px 0;
+            width: 100%;
+            height: 100%;
+            background-color: $light_grey;
+
+            .line2{
+                margin-right: 10px;
+            }
+        }
+
+        .footer__column3 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-content: stretch;
+            text-align: justify;
+            margin: 0 0;
+            padding: 40px 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer__column4 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-content: stretch;
+            text-align: justify;
+            margin: 0 0;
+            padding: 40px 0;
+            width: 100%;
+            height: 100%;
+            background-color: $light_grey;
+        }
+    }
+}
+
+.numbers {
+    color: $blue_number;
+    padding: 3px 10px 3px 15px;
+    text-align: center;
+    letter-spacing: -0.3em;
+    margin-bottom: 40px;
+    
+    .box{
+        border: 3px solid $light_grey;
+        background-color: $white;
+        color: $blue_number;
+        font-size: 2em;
+       
+    }
+}
+       

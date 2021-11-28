@@ -1,0 +1,226 @@
+/** COLORS **/
+/** HELPERS **/
+.clearfix:before, .clearfix::after {
+  content: " ";
+  display: table; }
+
+.clearfix::after {
+  clear: both; }
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; }
+
+.banner__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%; }
+  .banner__header .small__ball {
+    background-color: #444444;
+    height: 78px; }
+    .banner__header .small__ball h4 {
+      color: white;
+      text-align: center;
+      padding-top: -100px; }
+    .banner__header .small__ball .balls {
+      margin-left: 30px;
+      margin-top: -30px; }
+      .banner__header .small__ball .balls span {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        border-radius: 12px;
+        margin-right: 4px; }
+        .banner__header .small__ball .balls span.ball {
+          background-color: #666666; }
+  .banner__header .banner__nav {
+    text-decoration: none;
+    display: inline-block;
+    height: 78px; }
+    .banner__header .banner__nav .bud_button {
+      margin: 30px 0 30px 15px; }
+      .banner__header .banner__nav .bud_button .buddy_button {
+        text-decoration: none;
+        background-color: #7db85e;
+        color: #fff;
+        border-radius: 10px 10px 10px 10px;
+        padding: 0.8em 1.2em; }
+    .banner__header .banner__nav ul {
+      float: right;
+      margin-top: -50px; }
+      .banner__header .banner__nav ul li {
+        display: inline-block;
+        list-style: none;
+        margin-right: 1em;
+        border: #7db85e; }
+        .banner__header .banner__nav ul li .menu {
+          text-decoration: none;
+          color: #444444; }
+          .banner__header .banner__nav ul li .menu .trf {
+            color: #5086dd; }
+  .banner__header .banner__home {
+    height: 78px;
+    background-color: whitesmoke; }
+    .banner__header .banner__home p {
+      margin-top: 30px;
+      margin-left: 15px; }
+      .banner__header .banner__home p .name {
+        color: #5086dd; }
+
+.payment {
+  color: #444444;
+  height: 300px; }
+  .payment .stage1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    margin-top: 70px;
+    font-size: 1.2em; }
+    .payment .stage1 .send_money {
+      margin-top: 30px;
+      margin-left: 15px; }
+    .payment .stage1 .add_connexion {
+      background-color: #3d71d5;
+      color: #fff;
+      border-radius: 10px 10px 10px 10px;
+      padding: 0.8em 1.5em; }
+  .payment .stage2 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: 25%;
+    margin-top: 10px;
+    margin-left: 230px;
+    padding: 100px 250px;
+    background-color: whitesmoke; }
+    .payment .stage2 #money {
+      margin-left: 3em; }
+    .payment .stage2 .pay {
+      background-color: #7db85e;
+      color: #fff;
+      border-radius: 10px 10px 10px 10px;
+      padding: 0.8em 5em;
+      margin-left: 3em;
+      font-size: 1.3em; }
+
+.transaction {
+  margin-top: 40px;
+  margin-left: 200px; }
+  .transaction .titre {
+    width: 500px;
+    margin-left: 50px; }
+  .transaction .my_transactions {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    display: inline-block;
+    color: #444444; }
+  .transaction .history {
+    display: inline-block;
+    border: 3px solid #444444;
+    width: 800px;
+    margin-left: 30px; }
+    .transaction .history .footer__column1 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+      text-align: justify;
+      margin: 0 0;
+      padding: 40px 0;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      background-color: #7db85e; }
+    .transaction .history .footer__column2 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+      text-align: justify;
+      margin: 0 0;
+      padding: 40px 0;
+      width: 100%;
+      height: 100%;
+      background-color: whitesmoke; }
+      .transaction .history .footer__column2 .line2 {
+        margin-right: 10px; }
+    .transaction .history .footer__column3 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+      text-align: justify;
+      margin: 0 0;
+      padding: 40px 0;
+      width: 100%;
+      height: 100%; }
+    .transaction .history .footer__column4 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
+      text-align: justify;
+      margin: 0 0;
+      padding: 40px 0;
+      width: 100%;
+      height: 100%;
+      background-color: whitesmoke; }
+
+.numbers {
+  color: #5086dd;
+  padding: 3px 10px 3px 15px;
+  text-align: center;
+  letter-spacing: -0.3em;
+  margin-bottom: 40px; }
+  .numbers .box {
+    border: 3px solid whitesmoke;
+    background-color: #fff;
+    font-size: 2em; }
+
+/*# sourceMappingURL=styles.css.map */
